@@ -7,7 +7,7 @@ function Hero(props) {
     
     
     let heroWrapClasses = ''
-    let heroOverlayClasses = 'hero-overlay bg-opacity-60'
+    let heroOverlayClasses = ''
     if ( props.fullHeight=='true' ) {
         heroWrapClasses = 'flex w-full items-center h-screen'
         heroOverlayClasses += ' rounded-md'
@@ -22,12 +22,12 @@ function Hero(props) {
                 animate={{ opacity: 1, y: 0 }}
                 >
                 <div className={heroWrapClasses}>
-                    <div className="text-center m-auto">
+                    <div className="m-auto">
                         <div className="hero rounded-md">
                             <div className={heroOverlayClasses}></div>
-                            <div className="hero-content text-center text-neutral-content">
+                            <div className="hero-content text-center">
                                 <div className="w-full p-8">
-                                    <h1 className="text-3xl">{ props.title }</h1>
+                                    <h1 className="text-3xl color-secondary-focus font-bold">{ props.title }</h1>
                                     {props.desc}
                                     {props.btn}
                                 </div>

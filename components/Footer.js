@@ -3,8 +3,8 @@ const commonData = require('../data/common.json')
 function Footer(){
     return(
         <>
-            <div className="fixed w-full bottom-0 left-0 text-center p-4 text-xs bg-black backdrop-blur-md">
-                {commonData.SiteName} / {commonData.VATNumber}
+            <div className="w-full text-center p-8 mt-4 text-xs">
+                <span className="block"><strong>{commonData.SiteName}</strong> - <i>{commonData.Slogan}</i></span>
             </div>
         </>
     )
