@@ -23,20 +23,20 @@ function StatsGiocatori(props) {
 
         <main className="pt-16">
 
-            <div className="m-auto">
+            <div className="m-auto mt-4">
                 <div className="hero rounded-md">
                     <div className="hero-content text-center">
                         <div className="w-full p-8">
                             <h1 className="text-3xl color-secondary-focus font-bold">{ props.player[0].name}</h1>
-                            <div className="rating">
+                            {/* <div className="rating">
                                 <input type="radio" name="rating-1" className="mask mask-star" />
                                 <input type="radio" name="rating-1" className="mask mask-star" checked />
                                 <input type="radio" name="rating-1" className="mask mask-star" />
                                 <input type="radio" name="rating-1" className="mask mask-star" />
                                 <input type="radio" name="rating-1" className="mask mask-star" />
-                            </div>
-                            <div>
-                                Ruolo: { roleExtended[ props.player[0].role ] } → Squadra: { props.player[0].team }
+                            </div> */}
+                            <div className="uppercase leading-4 tracking-wide mt-2 text-sm">
+                                Ruolo: <strong>{ roleExtended[ props.player[0].role ] }</strong> <span className="mx-2">→</span> Squadra: <strong>{ props.player[0].team }</strong>
                             </div>
                         </div>
                     </div>

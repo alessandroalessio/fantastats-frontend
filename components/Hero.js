@@ -6,7 +6,7 @@ function Hero(props) {
     let btn = ( props.btnURL!="" && props.btnLabel ) ? '<Link href=' +  props.btnURL + '><a className="btn capitalize mt-5 mb-5">' + props.btnLabel + '</a></Link>' : ''
     
     
-    let heroWrapClasses = ''
+    let heroWrapClasses = 'mt-4'
     let heroOverlayClasses = ''
     if ( props.fullHeight=='true' ) {
         heroWrapClasses = 'flex w-full items-center h-screen'
