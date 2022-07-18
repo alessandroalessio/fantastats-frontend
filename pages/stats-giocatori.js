@@ -6,6 +6,7 @@ import Hero from '../components/Hero'
 import Breadcrumbs from '../components/Breadcrumbs'
 import DataTable, { createTheme } from 'react-data-table-component';
 
+const commonData = require('../data/common.json')
 
 export async function getStaticProps() {
     const res = await fetch('http://127.0.0.1:8000/api/player-stats-data')
@@ -206,7 +207,6 @@ export default function StatsGiocatori(props) {
                         paginationServer
                         selectableRowsVisibleOnly={true}
                         paginationPerPage={25}
-                        paginationTotalRows={data.total}
                         paginationTotalRows={totalRows}
                         onChangeRowsPerPage={handlePerRowsChange}
                         onChangePage={handlePageChange}
