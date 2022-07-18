@@ -174,7 +174,7 @@ export default function StatsGiocatori(props) {
     return (
         <div>
         <Head>
-            <title>Statistiche Giocatori Fantacalcio</title>
+            <title>Statistiche Giocatori Fantacalcio | {commonData.SiteName}</title>
             <meta name="description" content="Analisi di dati statistici dei giocatori di Serie A negli ultimi anni" />
             <link rel="icon" href="/favicon.ico" />
         </Head>
