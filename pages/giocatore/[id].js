@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 
+const commonData = require('../../data/common.json')
 
 function StatsGiocatori(props) {
 
@@ -16,8 +17,8 @@ function StatsGiocatori(props) {
     return (
         <div>
         <Head>
-            <title>Statistiche Fantacalcio {props.player[0].name} | {commonData.SiteName}</title>
-            <meta name="description" content={ 'Statistiche per il fantacalcio di' + props.player[0].name } />
+            <title>Statistiche Fantacalcio {props.player.data[0].name} | {commonData.SiteName}</title>
+            <meta name="description" content={ 'Statistiche per il fantacalcio di' + props.player.data[0].name } />
             <link rel="icon" href="/favicon.ico" />
         </Head>
 
@@ -27,7 +28,7 @@ function StatsGiocatori(props) {
                 <div className="hero rounded-md">
                     <div className="hero-content text-center">
                         <div className="w-full p-8">
-                            <h1 className="text-3xl color-secondary-focus font-bold">{ props.player[0].name}</h1>
+                            <h1 className="text-3xl color-secondary-focus font-bold">{ props.player.data[0].name}</h1>
                             {/* <div className="rating">
                                 <input type="radio" name="rating-1" className="mask mask-star" />
                                 <input type="radio" name="rating-1" className="mask mask-star" checked />
@@ -36,7 +37,7 @@ function StatsGiocatori(props) {
                                 <input type="radio" name="rating-1" className="mask mask-star" />
                             </div> */}
                             <div className="uppercase leading-4 tracking-wide mt-2 text-sm">
-                                Ruolo: <strong>{ roleExtended[ props.player[0].role ] }</strong> <span className="mx-2">→</span> Squadra: <strong>{ props.player[0].team }</strong>
+                                Ruolo: <strong>{ roleExtended[ props.player.data[0].role ] }</strong> <span className="mx-2">→</span> Squadra: <strong>{ props.player.data[0].team }</strong>
                             </div>
                         </div>
                     </div>
@@ -50,7 +51,7 @@ function StatsGiocatori(props) {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
                         </div>
                         <div className="stat-title">Fanta Media</div>
-                        <div className="stat-value text-accent">{ props.player[0].mf }</div>
+                        <div className="stat-value text-accent">{ props.player.data[0].mf }</div>
                         {/* <div className="stat-desc">21% more than last month</div> */}
                     </div>
                     
@@ -59,7 +60,7 @@ function StatsGiocatori(props) {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
                         <div className="stat-title">Media Voto</div>
-                        <div className="stat-value text-secondary">{ props.player[0].mv }</div>
+                        <div className="stat-value text-secondary">{ props.player.data[0].mv }</div>
                         {/* <div className="stat-desc">21% more than last month</div> */}
                     </div>
                     
@@ -68,7 +69,7 @@ function StatsGiocatori(props) {
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
                         <div className="stat-title">Partite giocate</div>
-                        <div className="stat-value">{ props.player[0].mv }</div>
+                        <div className="stat-value">{ props.player.data[0].mv }</div>
                         {/* <div className="stat-desc text-secondary">31 tasks remaining</div> */}
                     </div>
                 </div>
@@ -102,9 +103,19 @@ export async function getStaticProps(context) {
 
     const { params } = context
 
-    const res = await fetch('http://127.0.0.1:8000/api/single-player-stats-data/' + params.id)
+    const res = await fetch('http://127.0.0.1:8000/api/v2/player-stats-data?id=' + params.id)
     const player = await res.json()
-    // console.log(player) // Non lo vedi nella console ma nel CMD dove esegui next
+
+    const resData = await fetch('http://127.0.0.1:8000/api/v2/single-player-stats-data/' + params.id)
+    const playerStats = await resData.json()
+
+    // Manipulate Yearly Data
+    const labelYears = [];
+    playerStats.forEach(element => {
+        labelYears.push(element.year)
+    });
+    console.log(playerStats) // Non lo vedi nella console ma nel CMD dove esegui next
+    console.log(labelYears) // Non lo vedi nella console ma nel CMD dove esegui next
 
     return {
         props: {
