@@ -9,7 +9,7 @@ import DataTable, { createTheme } from 'react-data-table-component';
 const commonData = require('../data/common.json')
 
 export async function getStaticProps() {
-    const res = await fetch('http://admin.fantastats.net/api/player-stats-data')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/player-stats-data')
     const players = await res.json()
 
     return {
@@ -90,8 +90,8 @@ export default function StatsGiocatori(props) {
 	const [roleField, setRoleField] = useState('ALL');
 
 	const fetchUsers = async page => {
-		setLoading(true);
-        const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/?page=' + page + '&per_page=' + perPage)
+        setLoading(true);
+        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=' + page + '&per_page=' + perPage)
         const data = await res.json()
 
 		setData(data.data);
@@ -106,7 +106,7 @@ export default function StatsGiocatori(props) {
 	const handlePerRowsChange = async (newPerPage, page) => {
 		setLoading(true);
 
-        const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/?page' + page + '&per_page=' + newPerPage)
+        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page' + page + '&per_page=' + newPerPage)
         const data = await res.json()
 		// const response = await axios.get(`https://reqres.in/api/users?page=${page}&per_page=${newPerPage}&delay=1`);
 
@@ -143,7 +143,7 @@ export default function StatsGiocatori(props) {
 
         let queryFilter = getQueryFilters()
         // if ( role!='ALL' ) queryFilter += '?role=' + role
-        const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/' + queryFilter)
+        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/' + queryFilter)
         
         const data = await res.json()
 
@@ -158,7 +158,7 @@ export default function StatsGiocatori(props) {
             setLoading(true);
 
             let queryFilter = getQueryFilters()
-            const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/' + queryFilter)
+            const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/' + queryFilter)
             const data = await res.json()
 
     
@@ -182,7 +182,7 @@ export default function StatsGiocatori(props) {
 
         <main className="pt-16">
             <Hero
-                title="Statistiche giocatori Fantcalcio"
+                title="Statistiche giocatori Fantacalcio"
                 desc="Analisi di dati statistici dei giocatori di Serie A negli ultimi anni"
                 />
 

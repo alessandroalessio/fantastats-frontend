@@ -103,10 +103,10 @@ export async function getStaticProps(context) {
 
     const { params } = context
 
-    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data?id=' + params.id)
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data?id=' + params.id)
     const player = await res.json()
 
-    const resData = await fetch('http://admin.fantastats.net/api/v2/single-player-stats-data/' + params.id)
+    const resData = await fetch('http://admin.fantastats.net/admin/public/api/v2/single-player-stats-data/' + params.id)
     const playerStats = await resData.json()
 
     // Manipulate Yearly Data
