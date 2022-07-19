@@ -82,7 +82,7 @@ function StatsGiocatori(props) {
 }
 
 export async function getStaticPaths() {
-    const res = await fetch('http://127.0.0.1:8000/api/player-stats-data?limit=100')
+    const res = await fetch('http://admin.fantastats.net/api/player-stats-data?limit=100')
     const players = await res.json()
 
     const paths = players.map(item => {
@@ -103,10 +103,10 @@ export async function getStaticProps(context) {
 
     const { params } = context
 
-    const res = await fetch('http://127.0.0.1:8000/api/v2/player-stats-data?id=' + params.id)
+    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data?id=' + params.id)
     const player = await res.json()
 
-    const resData = await fetch('http://127.0.0.1:8000/api/v2/single-player-stats-data/' + params.id)
+    const resData = await fetch('http://admin.fantastats.net/api/v2/single-player-stats-data/' + params.id)
     const playerStats = await resData.json()
 
     // Manipulate Yearly Data
@@ -114,8 +114,8 @@ export async function getStaticProps(context) {
     playerStats.forEach(element => {
         labelYears.push(element.year)
     });
-    console.log(playerStats) // Non lo vedi nella console ma nel CMD dove esegui next
-    console.log(labelYears) // Non lo vedi nella console ma nel CMD dove esegui next
+    // console.log(playerStats) // Non lo vedi nella console ma nel CMD dove esegui next
+    // console.log(labelYears) // Non lo vedi nella console ma nel CMD dove esegui next
 
     return {
         props: {
