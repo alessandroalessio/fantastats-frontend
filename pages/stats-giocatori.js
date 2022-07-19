@@ -8,14 +8,16 @@ import DataTable, { createTheme } from 'react-data-table-component';
 
 const commonData = require('../data/common.json')
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
     const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=25')
     const players = await res.json()
     const data = players.data
+    const demoContent = 'Demo Content'
 
     return {
       props: {
         data,
+        demoContent
       },
     }
 }
@@ -202,6 +204,8 @@ export default function StatsGiocatori(props) {
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div>
                     </div>
+
+                    <div className="text-xl p-5">{props.demoContent}</div>
 
                     <DataTable
                         columns={columns}
