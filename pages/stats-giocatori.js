@@ -209,7 +209,7 @@ export default function StatsGiocatori(props) {
 
                     <DataTable
                         columns={columns}
-                        data={data}
+                        data={props.data}
                     />
 
                     <br />
