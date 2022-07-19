@@ -12,12 +12,10 @@ export async function getStaticProps(context) {
     const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=25')
     const players = await res.json()
     const data = players.data
-    const demoContent = 'Demo Content'
 
     return {
       props: {
-        data,
-        demoContent
+        data
       },
     }
 }
@@ -205,16 +203,6 @@ export default function StatsGiocatori(props) {
                         </div>
                     </div>
 
-                    <div className="text-xl p-5">{props.demoContent}</div>
-
-                    <DataTable
-                        columns={columns}
-                        data={props.data}
-                    />
-
-                    <br />
-                    <br />
-
                     <DataTable
                         pagination
                         paginationServer
@@ -225,7 +213,7 @@ export default function StatsGiocatori(props) {
                         onChangePage={handlePageChange}
                         highlightOnHover={true}
                         columns={columns}
-                        data={data}
+                        data={props.data}
                     />
                 </div>
             </div>
