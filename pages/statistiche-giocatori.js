@@ -10,12 +10,14 @@ const commonData = require('../data/common.json')
 
 const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=25')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=1000')
     const players = await res.json()
     const data = players.data
     const totalRows = players.total
 
     // console.log(data)
+
+    /// Provare a riparsare i dati con id invece che fid
 
     return {
       props: {
@@ -120,93 +122,15 @@ const columns = [
 
 export default function StatsGiocatori(props) {
 
-    const [data, setData] = useState([]);
+    const [dataTable, setDataTable] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [totalRows, setTotalRows] = useState(0);
 	const [perPage, setPerPage] = useState(25);
 	const [roleField, setRoleField] = useState('ALL');
 
-	const fetchUsers = async page => {
-        setLoading(true);
-        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=' + page + '&per_page=' + perPage)
-        const data = await res.json()
-
-		setData(data.data);
-		setTotalRows(data.total);
-		setLoading(false);
-	};
-
-    const handlePageChange = page => {
-		fetchUsers(page);
-	};
-
-	const handlePerRowsChange = async (newPerPage, page) => {
-		setLoading(true);
-
-        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page' + page + '&per_page=' + newPerPage)
-        const data = await res.json()
-		// const response = await axios.get(`https://reqres.in/api/users?page=${page}&per_page=${newPerPage}&delay=1`);
-
-		setData(data.data);
-		setPerPage(newPerPage);
-		setLoading(false);
-	};
-
-    const getQueryFilters = () => {
-        let queryFilter = '';
-        
-        let roleSelected = document.querySelector('.roles-filter .tab-active').dataset.role;
-        if ( roleSelected!='ALL' ) queryFilter += '&role=' + roleSelected
-        
-        let sField = document.getElementById('searchField').value;
-        if ( sField.length>2 ) queryFilter += '&s=' + sField
-
-        console.log( queryFilter )
-        return '?' + queryFilter.substring(1)
-    }
-
-    const handleRole = async(role) => {
-        let rolesBtn = document.querySelectorAll('.roles-filter a');
-
-        rolesBtn.forEach( (item, k) => {
-            item.classList.remove("tab-active");
-            if ( item.dataset.role==role ) {
-                item.classList.add("tab-active");
-                setRoleField(role);
-            }
-        })
-
-        setLoading(true);
-
-        let queryFilter = getQueryFilters()
-        // if ( role!='ALL' ) queryFilter += '?role=' + role
-        const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/' + queryFilter)
-        
-        const data = await res.json()
-
-		setData(data.data);
-		setLoading(false);
-    }
-
-    const handleSearch = async() => {
-        let sField = document.getElementById('searchField').value;
-        
-        if ( sField.length>2 ){
-            setLoading(true);
-
-            let queryFilter = getQueryFilters()
-            const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/' + queryFilter)
-            const data = await res.json()
-
-    
-            setData(data.data);
-            setLoading(false);
-        }
-    }
-
     useEffect(() => {
 		// fetchUsers(1); // fetch page 1 of users
-        // setData(props.data)
+        setDataTable(props.data)
 	}, []);
 
     return (
@@ -226,7 +150,7 @@ export default function StatsGiocatori(props) {
             <div className="container mx-auto px-4 pb-4">
                 <div className="overflow-x-auto">
 
-                    <div className="filters mb-4">
+                    {/* <div className="filters mb-4">
                         <div className="tabs roles-filter justify-center mb-2">
                             <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>Tutti</a> 
                             <a className="tab tab-bordered" data-role="P" onClick={ () => { handleRole('P') } }>Portieri</a> 
@@ -237,19 +161,13 @@ export default function StatsGiocatori(props) {
                         <div className="search-filter text-center">
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div>
-                    </div>
+                    </div> */}
 
                     <DataTable
                         pagination
-                        paginationServer
-                        // selectableRowsVisibleOnly={true}
-                        paginationPerPage={25}
-                        paginationTotalRows={props.totalRows}
-                        onChangeRowsPerPage={handlePerRowsChange}
-                        onChangePage={handlePageChange}
-                        highlightOnHover={true}
-                        columns={columns}
-                        data={data}
+                        // paginationPerPage={25}
+                        // columns={columns}
+                        data={props.data}
                     />
                 </div>
             </div>
