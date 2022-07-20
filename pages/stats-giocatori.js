@@ -8,17 +8,21 @@ import DataTable, { createTheme } from 'react-data-table-component';
 
 const commonData = require('../data/common.json')
 
+const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=25')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=1000')
     const players = await res.json()
     const data = players.data
+    const totalRows = players.total
 
     return {
       props: {
-        data
+        data,
+        totalRows
       },
     }
 }
+
 
 const columns = [
     {
@@ -186,7 +190,7 @@ export default function StatsGiocatori(props) {
                 title="Statistiche giocatori Fantacalcio"
                 desc="Analisi di dati statistici dei giocatori di Serie A negli ultimi anni"
                 />
-
+{/* 
             <div className="container mx-auto px-4 pb-4">
                 <div className="overflow-x-auto">
 
@@ -205,21 +209,36 @@ export default function StatsGiocatori(props) {
 
                     <DataTable
                         pagination
-                        paginationServer
+                        // paginationServer
                         selectableRowsVisibleOnly={true}
-                        paginationPerPage={25}
-                        paginationTotalRows={totalRows}
-                        onChangeRowsPerPage={handlePerRowsChange}
-                        onChangePage={handlePageChange}
+                        paginationPerPage={perPage}
+                        paginationTotalRows={props.totalRows}
+                        // onChangeRowsPerPage={handlePerRowsChange}
+                        // onChangePage={handlePageChange}
                         highlightOnHover={true}
                         columns={columns}
                         data={props.data}
                     />
                 </div>
-            </div>
+            </div> */}
 
-            {/* <div className="container px-4 pb-4">
+            <div className="px-4 pb-4">
                 <div className="overflow-x-auto">
+
+                    <div className="filters mb-4">
+                        <div className="tabs roles-filter justify-center mb-2">
+                            <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>Tutti</a> 
+                            <a className="tab tab-bordered" data-role="P" onClick={ () => { handleRole('P') } }>Portieri</a> 
+                            <a className="tab tab-bordered" data-role="D" onClick={ () => { handleRole('D') } }>Difensori</a> 
+                            <a className="tab tab-bordered" data-role="C" onClick={ () => { handleRole('C') } }>Centrocampisti</a>
+                            <a className="tab tab-bordered" data-role="A" onClick={ () => { handleRole('A') } }>Attaccanti</a>
+                        </div>
+                        <div className="search-filter text-center">
+                            <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
+                        </div>
+                    </div>
+
+
                     <table className="table w-full">
                         <thead>
                         <tr>
@@ -229,10 +248,11 @@ export default function StatsGiocatori(props) {
                             <th><div className="cursor-pointer tooltip tooltip-right z-50" data-tip="Partite medie giocate in un anno">PG</div></th>
                             <th><div className="cursor-pointer tooltip tooltip-right z-40" data-tip="Media voto">MV</div></th>
                             <th><div className="cursor-pointer tooltip tooltip-right z-30" data-tip="Fanta Media Voto">FM</div></th>
+                            <th className="text-center"><div className="cursor-pointer tooltip tooltip-right z-20">Dettaglio</div></th>
                         </tr>
                         </thead>
                         <tbody>
-                            {props.players.map(function (player) {
+                            {props.data.map(function (player) {
                                 return (
                                     <>
                                     <tr>
@@ -248,6 +268,16 @@ export default function StatsGiocatori(props) {
                                         <td>{player.pg}</td>
                                         <td>{player.mv.toFixed(2)}</td>
                                         <td>{player.mf.toFixed(2)}</td>
+                                        <td className="text-center">
+                                            <Link href={'/giocatore/' + player.fid}>
+                                                <a className="btn btn-sm">
+                                                    Vedi 
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                    </svg>
+                                                </a>
+                                            </Link>
+                                        </td>
                                     </tr>
                                     </>
                                 );
@@ -255,7 +285,7 @@ export default function StatsGiocatori(props) {
                         </tbody>
                     </table>
                 </div>
-            </div> */}
+            </div>
 
         </main>
 
