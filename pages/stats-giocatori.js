@@ -10,10 +10,12 @@ const commonData = require('../data/common.json')
 
 const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=1000')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=25')
     const players = await res.json()
     const data = players.data
     const totalRows = players.total
+
+    // console.log(data)
 
     return {
       props: {
@@ -63,6 +65,36 @@ const columns = [
     {
         name: 'FM',
         selector: row => row.mf,
+        center: true,
+        // sortable: true,
+    },
+    {
+        name: 'GF',
+        selector: row => row.gt,
+        center: true,
+        // sortable: true,
+    },
+    {
+        name: 'GS',
+        selector: row => row.gs,
+        center: true,
+        // sortable: true,
+    },
+    {
+        name: 'Ass.',
+        selector: row => row.ass,
+        center: true,
+        // sortable: true,
+    },
+    {
+        name: 'Amm.',
+        selector: row => row.amm,
+        center: true,
+        // sortable: true,
+    },
+    {
+        name: 'Esp.',
+        selector: row => row.esp,
         center: true,
         // sortable: true,
     },
@@ -190,7 +222,7 @@ export default function StatsGiocatori(props) {
                 title="Statistiche giocatori Fantacalcio"
                 desc="Analisi di dati statistici dei giocatori di Serie A negli ultimi anni"
                 />
-{/* 
+
             <div className="container mx-auto px-4 pb-4">
                 <div className="overflow-x-auto">
 
@@ -209,20 +241,20 @@ export default function StatsGiocatori(props) {
 
                     <DataTable
                         pagination
-                        // paginationServer
+                        paginationServer
                         selectableRowsVisibleOnly={true}
-                        paginationPerPage={perPage}
+                        paginationPerPage={25}
                         paginationTotalRows={props.totalRows}
                         // onChangeRowsPerPage={handlePerRowsChange}
-                        // onChangePage={handlePageChange}
+                        onChangePage={handlePageChange}
                         highlightOnHover={true}
                         columns={columns}
-                        data={props.data}
+                        data={data}
                     />
                 </div>
-            </div> */}
+            </div>
 
-            <div className="px-4 pb-4">
+            {/* <div className="px-4 pb-4">
                 <div className="overflow-x-auto">
 
                     <div className="filters mb-4">
@@ -285,7 +317,7 @@ export default function StatsGiocatori(props) {
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> */}
 
         </main>
 
