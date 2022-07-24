@@ -16,12 +16,34 @@ export async function getStaticProps(context) {
     const totalRows = players.total
 
     // console.log(data)
-
+    const dataParsed = []
     /// Provare a riparsare i dati con id invece che fid
+    data.forEach(element => {
+        dataParsed.push({
+            'id': element.fid,
+            'name': element.name,
+            'role': element.role,
+            'team': element.team,
+            'pg': element.pg,
+            'mv': element.mv,
+            'mf': element.mf,
+            'gf': element.gf,
+            'gs': element.gs,
+            'rp': element.rp,
+            'rc': element.rc,
+            'rf': element.rf,
+            'rs': element.rs,
+            'ass': element.ass,
+            'amm': element.amm,
+            'esp': element.esp,
+            'gt': element.gt,
+        })
+    });
+    console.log(dataParsed)
 
     return {
       props: {
-        data,
+        dataParsed,
         totalRows
       },
     }
@@ -34,7 +56,7 @@ const columns = [
         selector: row => row.name,
         cell: ( row => (
             <>
-                <Link href={"/giocatore/" + row.fid }>
+                <Link href={"/giocatore/" + row.id }>
                     <a>
                         {row.name}
                     </a>
@@ -100,22 +122,22 @@ const columns = [
         center: true,
         // sortable: true,
     },
-    {
-        name: 'Dettaglio',
-        center: true,
-        cell: ( row => (
-            <>
-                <Link href={"/giocatore/" + row.fid }>
-                    <a className="btn btn-sm">
-                        Vedi 
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
-                </Link>
-            </>
-        ) )
-    }
+    // {
+    //     name: 'Dettaglio',
+    //     center: true,
+    //     cell: ( row => (
+    //         <>
+    //             <Link href={"/giocatore/" + row.fid }>
+    //                 <a className="btn btn-sm">
+    //                     Vedi 
+    //                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+    //                         <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+    //                     </svg>
+    //                 </a>
+    //             </Link>
+    //         </>
+    //     ) )
+    // }
 ];
 
 // https://react-data-table-component.netlify.app/?path=/story/getting-started-intro--page
@@ -130,7 +152,7 @@ export default function StatsGiocatori(props) {
 
     useEffect(() => {
 		// fetchUsers(1); // fetch page 1 of users
-        setDataTable(props.data)
+        // setDataTable(props.data)
 	}, []);
 
     return (
@@ -164,10 +186,10 @@ export default function StatsGiocatori(props) {
                     </div> */}
 
                     <DataTable
-                        pagination
-                        // paginationPerPage={25}
-                        // columns={columns}
-                        data={props.data}
+                        // pagination
+                        paginationPerPage={25}
+                        columns={columns}
+                        data={props.dataParsed}
                     />
                 </div>
             </div>
