@@ -15,32 +15,29 @@ export async function getStaticProps(context) {
     const data = players.data
     const totalRows = players.total
 
-    // console.log(data)
     const dataParsed = []
-    /// Provare a riparsare i dati con id invece che fid
     data.forEach((element, k) => {
         dataParsed.push({
             'id': k+1,
+            'fid': element.fid,
             'name': element.name.replace("'", '´'),
             'role': element.role,
             'team': element.team,
-            // 'pg': element.pg,
-            // 'mv': element.mv,
-            // 'mf': element.mf,
-            // 'gf': element.gf,
-            // 'gs': element.gs,
-            // 'rp': element.rp,
-            // 'rc': element.rc,
-            // 'rf': element.rf,
-            // 'rs': element.rs,
-            // 'ass': element.ass,
-            // 'amm': element.amm,
-            // 'esp': element.esp,
-            // 'gt': element.gt,
+            'pg': element.pg,
+            'mv': element.mv,
+            'mf': element.mf,
+            'gf': element.gf,
+            'gs': element.gs,
+            'rp': element.rp,
+            'rc': element.rc,
+            'rf': element.rf,
+            'rs': element.rs,
+            'ass': element.ass,
+            'amm': element.amm,
+            'esp': element.esp,
+            'gt': element.gt,
         })
     });
-    console.log(dataParsed)
-    console.log('========================')
 
     return {
       props: {
@@ -53,16 +50,11 @@ export async function getStaticProps(context) {
 
 const columns = [
     {
-        name: 'ID',
-        selector: row => row.id,
-        keyField: true
-    },
-    {
         name: 'NOME',
         selector: row => row.name,
         cell: ( row => (
             <>
-                <Link href={"/giocatore/" + row.id }>
+                <Link href={"/giocatore/" + row.fid }>
                     <a>
                         {row.name}
                     </a>
@@ -128,70 +120,81 @@ const columns = [
         center: true,
         // sortable: true,
     },
-    // {
-    //     name: 'Dettaglio',
-    //     center: true,
-    //     cell: ( row => (
-    //         <>
-    //             <Link href={"/giocatore/" + row.fid }>
-    //                 <a className="btn btn-sm">
-    //                     Vedi 
-    //                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-    //                         <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-    //                     </svg>
-    //                 </a>
-    //             </Link>
-    //         </>
-    //     ) )
-    // }
+    {
+        name: 'Dettaglio',
+        center: true,
+        cell: ( row => (
+            <>
+                <Link href={"/giocatore/" + row.fid }>
+                    <a className="btn btn-sm">
+                        Vedi 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </Link>
+            </>
+        ) )
+    }
 ];
 
-let dataParsed = [
-    { 'id': 1, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 2, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 3, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 4, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 5, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 6, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 7, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 8, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 9, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 10, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 11, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 12, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 13, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 14, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 15, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 16, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 17, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 18, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 19, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 20, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 21, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 22, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 23, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 24, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 25, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 26, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 27, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-    { 'id': 28, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
-];
-console.log(dataParsed)
 
 // https://react-data-table-component.netlify.app/?path=/story/getting-started-intro--page
 
 export default function StatsGiocatori(props) {
 
-    // const [dataTable, setDataTable] = useState([]);
+    const [srcDataTable, setSrcDataTable] = useState([]);
+    const [dataTable, setDataTable] = useState([]);
 	// const [loading, setLoading] = useState(false);
 	// const [totalRows, setTotalRows] = useState(0);
 	// const [perPage, setPerPage] = useState(25);
-	// const [roleField, setRoleField] = useState('ALL');
+	const [roleField, setRoleField] = useState('ALL');
 
-    // useEffect(() => {
-	// 	// fetchUsers(1); // fetch page 1 of users
-    //     // setDataTable(props.data)
-	// }, []);
+    const handleRole = (role, props) => {
+        let rolesBtn = document.querySelectorAll('.roles-filter a');
+        rolesBtn.forEach( (item, k) => {
+            item.classList.remove("tab-active");
+            if ( item.dataset.role==role ) {
+                item.classList.add("tab-active");
+                setRoleField(role);
+            }
+        })
+
+        let newDataTable = []
+        let dataTableForSearch = srcDataTable
+        dataTableForSearch.forEach( (element, k) => {
+            if ( role!='ALL' && role==element.role ) {
+                newDataTable.push({
+                    'id': k+1,
+                    'fid': element.fid,
+                    'name': element.name.replace("'", '´'),
+                    'role': element.role,
+                    'team': element.team,
+                    'pg': element.pg,
+                    'mv': element.mv,
+                    'mf': element.mf,
+                    'gf': element.gf,
+                    'gs': element.gs,
+                    'rp': element.rp,
+                    'rc': element.rc,
+                    'rf': element.rf,
+                    'rs': element.rs,
+                    'ass': element.ass,
+                    'amm': element.amm,
+                    'esp': element.esp,
+                    'gt': element.gt,
+                })
+            } else if (role=='ALL') {
+                newDataTable = srcDataTable
+            }
+        });
+        setDataTable(newDataTable);
+    }
+
+    useEffect(() => {
+        setDataTable(props.dataParsed)
+        setSrcDataTable(props.dataParsed)
+	}, []);
 
     return (
         <div>
@@ -210,32 +213,6 @@ export default function StatsGiocatori(props) {
             <div className="container mx-auto px-4 pb-4">
                 <div className="overflow-x-auto">
 
-                    {/* <div className="filters mb-4">
-                        <div className="tabs roles-filter justify-center mb-2">
-                            <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>Tutti</a> 
-                            <a className="tab tab-bordered" data-role="P" onClick={ () => { handleRole('P') } }>Portieri</a> 
-                            <a className="tab tab-bordered" data-role="D" onClick={ () => { handleRole('D') } }>Difensori</a> 
-                            <a className="tab tab-bordered" data-role="C" onClick={ () => { handleRole('C') } }>Centrocampisti</a>
-                            <a className="tab tab-bordered" data-role="A" onClick={ () => { handleRole('A') } }>Attaccanti</a>
-                        </div>
-                        <div className="search-filter text-center">
-                            <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
-                        </div>
-                    </div> */}
-
-                    <DataTable
-                        pagination
-                        paginationPerPage={25}
-                        columns={columns}
-                        data={props.dataParsed}
-                        // data={dataParsed}
-                    />
-                </div>
-            </div>
-
-            {/* <div className="px-4 pb-4">
-                <div className="overflow-x-auto">
-
                     <div className="filters mb-4">
                         <div className="tabs roles-filter justify-center mb-2">
                             <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>Tutti</a> 
@@ -244,59 +221,20 @@ export default function StatsGiocatori(props) {
                             <a className="tab tab-bordered" data-role="C" onClick={ () => { handleRole('C') } }>Centrocampisti</a>
                             <a className="tab tab-bordered" data-role="A" onClick={ () => { handleRole('A') } }>Attaccanti</a>
                         </div>
-                        <div className="search-filter text-center">
+                        {/* <div className="search-filter text-center">
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
-                        </div>
+                        </div> */}
                     </div>
 
-
-                    <table className="table w-full">
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th><div className="cursor-pointer tooltip tooltip-right z-40" data-tip="Ruolo">R</div></th>
-                            <th><div className="cursor-pointer tooltip tooltip-right z-40" data-tip="Squadra">Sq.</div></th>
-                            <th><div className="cursor-pointer tooltip tooltip-right z-50" data-tip="Partite medie giocate in un anno">PG</div></th>
-                            <th><div className="cursor-pointer tooltip tooltip-right z-40" data-tip="Media voto">MV</div></th>
-                            <th><div className="cursor-pointer tooltip tooltip-right z-30" data-tip="Fanta Media Voto">FM</div></th>
-                            <th className="text-center"><div className="cursor-pointer tooltip tooltip-right z-20">Dettaglio</div></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            {props.data.map(function (player) {
-                                return (
-                                    <>
-                                    <tr>
-                                        <td>
-                                            <Link href={"/giocatore/" + player.fid }>
-                                                <a>
-                                                    {player.name}
-                                                </a>
-                                            </Link>
-                                        </td>
-                                        <td>{player.role}</td>
-                                        <td>{player.team}</td>
-                                        <td>{player.pg}</td>
-                                        <td>{player.mv.toFixed(2)}</td>
-                                        <td>{player.mf.toFixed(2)}</td>
-                                        <td className="text-center">
-                                            <Link href={'/giocatore/' + player.fid}>
-                                                <a className="btn btn-sm">
-                                                    Vedi 
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                                    </svg>
-                                                </a>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                    </>
-                                );
-                            })}
-                        </tbody>
-                    </table>
+                    <DataTable
+                        pagination
+                        paginationPerPage={25}
+                        columns={columns}
+                        // data={props.dataParsed}
+                        data={dataTable}
+                    />
                 </div>
-            </div> */}
+            </div>
 
         </main>
 
