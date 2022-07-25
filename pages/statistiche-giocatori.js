@@ -10,7 +10,7 @@ const commonData = require('../data/common.json')
 
 const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&per_page=1000')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&perPage=1000')
     const players = await res.json()
     const data = players.data
     const totalRows = players.total
@@ -18,28 +18,29 @@ export async function getStaticProps(context) {
     // console.log(data)
     const dataParsed = []
     /// Provare a riparsare i dati con id invece che fid
-    data.forEach(element => {
+    data.forEach((element, k) => {
         dataParsed.push({
-            'id': element.fid,
-            'name': element.name,
+            'id': k+1,
+            'name': element.name.replace("'", '´'),
             'role': element.role,
             'team': element.team,
-            'pg': element.pg,
-            'mv': element.mv,
-            'mf': element.mf,
-            'gf': element.gf,
-            'gs': element.gs,
-            'rp': element.rp,
-            'rc': element.rc,
-            'rf': element.rf,
-            'rs': element.rs,
-            'ass': element.ass,
-            'amm': element.amm,
-            'esp': element.esp,
-            'gt': element.gt,
+            // 'pg': element.pg,
+            // 'mv': element.mv,
+            // 'mf': element.mf,
+            // 'gf': element.gf,
+            // 'gs': element.gs,
+            // 'rp': element.rp,
+            // 'rc': element.rc,
+            // 'rf': element.rf,
+            // 'rs': element.rs,
+            // 'ass': element.ass,
+            // 'amm': element.amm,
+            // 'esp': element.esp,
+            // 'gt': element.gt,
         })
     });
     console.log(dataParsed)
+    console.log('========================')
 
     return {
       props: {
@@ -51,6 +52,11 @@ export async function getStaticProps(context) {
 
 
 const columns = [
+    {
+        name: 'ID',
+        selector: row => row.id,
+        keyField: true
+    },
     {
         name: 'NOME',
         selector: row => row.name,
@@ -140,20 +146,52 @@ const columns = [
     // }
 ];
 
+let dataParsed = [
+    { 'id': 1, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 2, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 3, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 4, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 5, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 6, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 7, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 8, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 9, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 10, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 11, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 12, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 13, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 14, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 15, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 16, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 17, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 18, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 19, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 20, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 21, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 22, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 23, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 24, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 25, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 26, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 27, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+    { 'id': 28, 'name': 'Giocatore 1', 'role': 'A', 'team': 'Squadra 1' },
+];
+console.log(dataParsed)
+
 // https://react-data-table-component.netlify.app/?path=/story/getting-started-intro--page
 
 export default function StatsGiocatori(props) {
 
-    const [dataTable, setDataTable] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [totalRows, setTotalRows] = useState(0);
-	const [perPage, setPerPage] = useState(25);
-	const [roleField, setRoleField] = useState('ALL');
+    // const [dataTable, setDataTable] = useState([]);
+	// const [loading, setLoading] = useState(false);
+	// const [totalRows, setTotalRows] = useState(0);
+	// const [perPage, setPerPage] = useState(25);
+	// const [roleField, setRoleField] = useState('ALL');
 
-    useEffect(() => {
-		// fetchUsers(1); // fetch page 1 of users
-        // setDataTable(props.data)
-	}, []);
+    // useEffect(() => {
+	// 	// fetchUsers(1); // fetch page 1 of users
+    //     // setDataTable(props.data)
+	// }, []);
 
     return (
         <div>
@@ -186,10 +224,11 @@ export default function StatsGiocatori(props) {
                     </div> */}
 
                     <DataTable
-                        // pagination
+                        pagination
                         paginationPerPage={25}
                         columns={columns}
                         data={props.dataParsed}
+                        // data={dataParsed}
                     />
                 </div>
             </div>
