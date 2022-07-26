@@ -1,20 +1,37 @@
+import React from 'react';
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 const commonData = require('../../data/common.json')
 
 export async function getStaticPaths() {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data?limit=50')
+    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data?perPage=1000')
     const players = await res.json()
     // console.log(players.data)
 
     const paths = players.data.map(item => {
-        return{
-            params: {
-                id: `${item.fid}`
+        if ( item.fid ) {
+            return{
+                params: {
+                    id: `${item.fid}`
+                }
             }
         }
     })
+
+    // console.log(paths)
 
     return {
       paths: paths,
@@ -34,19 +51,62 @@ export async function getStaticProps(context) {
 
     // Manipulate Yearly Data
     const labelYears = [];
+    const valueFM = [];
+    const valueGol = [];
+    const valueAssist = [];
+    const valuePresence = [];
     playerStats.forEach(element => {
-        labelYears.push(element.year)
+        labelYears.push(element.year + ' - ' + element.team)
+        valueFM.push(element.mf)
+        valueGol.push(element.gt)
+        valueAssist.push(element.ass)
+        valuePresence.push(element.pg)
     });
     // console.log(player)
     // console.log(playerStats) // Non lo vedi nella console ma nel CMD dove esegui next
     // console.log(labelYears) // Non lo vedi nella console ma nel CMD dove esegui next
+    // console.log(valueFM) // Non lo vedi nella console ma nel CMD dove esegui next
+    // console.log(valueGol) // Non lo vedi nella console ma nel CMD dove esegui next
+    // console.log(valueAssist) // Non lo vedi nella console ma nel CMD dove esegui next
 
     return {
         props: {
-            playerData: player.data[0]
+            playerData: player.data[0],
+            statsForCharts: {
+                'labelYears': labelYears.reverse(),
+                'valueFM': valueFM.reverse(),
+                'valueGol': valueGol.reverse(),
+                'valueAssist': valueAssist.reverse(),
+                'valuePresence': valuePresence.reverse(),
+            }
         }
     }
 }
+
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
+
+export const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Andamento annuale',
+      },
+    },
+  };
+  
 
 function StatsGiocatoriSingle(props) {
 
@@ -58,6 +118,40 @@ function StatsGiocatoriSingle(props) {
     roleExtended['D'] = 'Difensore'
     roleExtended['C'] = 'Centrocampista'
     roleExtended['A'] = 'Attaccante'
+  
+    const labels = props.statsForCharts.labelYears;
+    // const labels = [ '2019-21', '2020', '2021' ]
+    const dataForChart = {
+        labels,
+        datasets: [
+          {
+            label: 'Fanta Media',
+            data: props.statsForCharts.valueFM,
+            borderColor: 'rgb(57,78,106)',
+            backgroundColor: 'rgba(57,78,106, 0.5)',
+          },
+          {
+            label: 'Goal',
+            data: props.statsForCharts.valueGol,
+            borderColor: 'rgb(193, 73, 173)',
+            backgroundColor: 'rgba(193, 73, 173, 0.5)',
+          },
+          {
+            label: 'Assist',
+            data: props.statsForCharts.valueAssist,
+            borderColor: 'rgb(70, 58, 161)',
+            backgroundColor: 'rgba(70, 58, 161, 0.5)',
+          },
+          {
+            label: 'Presenze',
+            data: props.statsForCharts.valuePresence,
+            borderColor: 'rgb(147, 230, 251)',
+            backgroundColor: 'rgba(147, 230, 251, 0.5)',
+          },
+        ],
+    };
+
+    // https://react-chartjs-2.js.org/examples/line-chart
 
     return (
         <div>
@@ -73,6 +167,16 @@ function StatsGiocatoriSingle(props) {
                 <div className="hero rounded-md">
                     <div className="hero-content text-center">
                         <div className="w-full p-8">
+                            <span className="text-xs block mb-5">
+                                <Link href="/statistiche-giocatori">
+                                    <a className="inline-flex items-center opacity-75 hover:opacity-100 cursor-pointer" href>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                        </svg>
+                                        <span className="ml-2">Tutti i giocatori</span>
+                                    </a>
+                                </Link>
+                            </span>
                             <h1 className="text-3xl color-secondary-focus font-bold">{ props.playerData.name}</h1>
                             {/* <div className="rating">
                                 <input type="radio" name="rating-1" className="mask mask-star" />
@@ -117,6 +221,10 @@ function StatsGiocatoriSingle(props) {
                         <div className="stat-value">{ props.playerData.mv }</div>
                         {/* <div className="stat-desc text-secondary">31 tasks remaining</div> */}
                     </div>
+                </div>
+
+                <div className="max-w-6xl mx-auto mt-4">
+                    <Line options={options} data={dataForChart} />
                 </div>
             </section>
 

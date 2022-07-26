@@ -76,49 +76,49 @@ const columns = [
         name: 'PG',
         selector: row => row.pg,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'MV',
         selector: row => row.mv,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'FM',
         selector: row => row.mf,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'GF',
         selector: row => row.gt,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'GS',
         selector: row => row.gs,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'Ass.',
         selector: row => row.ass,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'Amm.',
         selector: row => row.amm,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'Esp.',
         selector: row => row.esp,
         center: true,
-        // sortable: true,
+        sortable: true,
     },
     {
         name: 'Dettaglio',
@@ -149,8 +149,11 @@ export default function StatsGiocatori(props) {
 	// const [totalRows, setTotalRows] = useState(0);
 	// const [perPage, setPerPage] = useState(25);
 	const [roleField, setRoleField] = useState('ALL');
+	const [presenceField, setPresenceField] = useState('25%');
+	const [presenceStyle, setPresenceStyle] = useState([]);
 
     const handleRole = (role, props) => {
+        // UI
         let rolesBtn = document.querySelectorAll('.roles-filter a');
         rolesBtn.forEach( (item, k) => {
             item.classList.remove("tab-active");
@@ -163,7 +166,7 @@ export default function StatsGiocatori(props) {
         let newDataTable = []
         let dataTableForSearch = srcDataTable
         dataTableForSearch.forEach( (element, k) => {
-            if ( role!='ALL' && role==element.role ) {
+            if ( roleField!='ALL' && roleField==element.role ) {
                 newDataTable.push({
                     'id': k+1,
                     'fid': element.fid,
@@ -191,9 +194,36 @@ export default function StatsGiocatori(props) {
         setDataTable(newDataTable);
     }
 
+    const presenceStyleAttr = {
+        backgroundColor: 'rgba(57, 78, 106, 0.5)',
+        cursor: 'pointer',
+        color: '#fff',
+        padding: '0.25em 1em',
+        borderRadius: '1em'
+    }
+    const presence25 = 38*0.25
+    const presence50 = 38*0.5
+    const presence75 = 38*0.75
+
+    const handlePresence = ( percentile ) => {
+        let presenceBtn = document.querySelectorAll('.presence-filter a');
+        console.log(percentile)
+        presenceBtn.forEach( (item, k) => {
+            item.style.backgroundColor = 'rgba(57, 78, 106, 0.5)'
+            if ( item.dataset.percentile==percentile ) {
+                item.style.backgroundColor = 'rgba(57, 78, 106, 0.75)'
+                setPresenceField(percentile)
+            }
+        })
+
+
+    }
+
     useEffect(() => {
         setDataTable(props.dataParsed)
         setSrcDataTable(props.dataParsed)
+        setPresenceStyle(presenceStyleAttr)
+        handlePresence('0%')
 	}, []);
 
     return (
@@ -224,6 +254,15 @@ export default function StatsGiocatori(props) {
                         {/* <div className="search-filter text-center">
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div> */}
+                        <div className="presence-filter flex gap-x-4 justify-center text-sm pt-2">
+                            <span className="italic opacity-75">Presenze:</span>
+                            <ul className="flex gap-x-4">
+                                <li><a style={ presenceStyle } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>Non impostato</a></li>
+                                <li><a style={ presenceStyle } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>>25%</a></li>
+                                <li><a style={ presenceStyle } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>>50%</a></li>
+                                <li><a style={ presenceStyle } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>>75%</a></li>
+                            </ul>
+                        </div>
                     </div>
 
                     <DataTable
