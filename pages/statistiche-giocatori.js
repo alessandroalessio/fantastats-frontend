@@ -10,7 +10,7 @@ const commonData = require('../data/common.json')
 
 const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/admin/public/api/v2/player-stats-data/?page=1&perPage=1000')
+    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/?page=1&perPage=1000')
     const players = await res.json()
     const data = players.data
     const totalRows = players.total
@@ -150,7 +150,7 @@ export default function StatsGiocatori(props) {
 	// const [perPage, setPerPage] = useState(25);
 	const [roleField, setRoleField] = useState('ALL');
 	const [presenceField, setPresenceField] = useState('25%');
-	const [presenceStyle, setPresenceStyle] = useState([]);
+	// const [presenceStyle, setPresenceStyle] = useState([]);
 
     const handleRole = (role, props) => {
         // UI
@@ -222,7 +222,7 @@ export default function StatsGiocatori(props) {
     useEffect(() => {
         setDataTable(props.dataParsed)
         setSrcDataTable(props.dataParsed)
-        setPresenceStyle(presenceStyleAttr)
+        // setPresenceStyle(presenceStyleAttr)
         handlePresence('0%')
 	}, []);
 
@@ -257,10 +257,10 @@ export default function StatsGiocatori(props) {
                         <div className="presence-filter flex gap-x-4 justify-center text-sm pt-2">
                             <span className="italic opacity-75">Presenze:</span>
                             <ul className="flex gap-x-4">
-                                <li><a style={ presenceStyle } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>Non impostato</a></li>
-                                <li><a style={ presenceStyle } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>>25%</a></li>
-                                <li><a style={ presenceStyle } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>>50%</a></li>
-                                <li><a style={ presenceStyle } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>>75%</a></li>
+                                <li><a style={ presenceStyleAttr } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>Non impostato</a></li>
+                                <li><a style={ presenceStyleAttr } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>&gt;25%</a></li>
+                                <li><a style={ presenceStyleAttr } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>&gt;50%</a></li>
+                                <li><a style={ presenceStyleAttr } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>&gt;75%</a></li>
                             </ul>
                         </div>
                     </div>
