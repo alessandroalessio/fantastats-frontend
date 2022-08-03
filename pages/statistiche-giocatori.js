@@ -47,7 +47,6 @@ export async function getStaticProps(context) {
     }
 }
 
-
 const columns = [
     {
         name: 'NOME',
@@ -126,7 +125,7 @@ const columns = [
         cell: ( row => (
             <>
                 <Link href={"/giocatore/" + row.fid }>
-                    <a className="btn btn-sm">
+                    <a className="btn btn-sm" target="_blank">
                         Vedi 
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -137,9 +136,6 @@ const columns = [
         ) )
     }
 ];
-
-
-// https://react-data-table-component.netlify.app/?path=/story/getting-started-intro--page
 
 export default function StatsGiocatori(props) {
 
@@ -154,19 +150,19 @@ export default function StatsGiocatori(props) {
 
     const handleRole = (role, props) => {
         // UI
+        setRoleField(role);
         let rolesBtn = document.querySelectorAll('.roles-filter a');
         rolesBtn.forEach( (item, k) => {
             item.classList.remove("tab-active");
             if ( item.dataset.role==role ) {
-                item.classList.add("tab-active");
-                setRoleField(role);
+                item.classList.add("tab-active");                
             }
         })
 
         let newDataTable = []
         let dataTableForSearch = srcDataTable
         dataTableForSearch.forEach( (element, k) => {
-            if ( roleField!='ALL' && roleField==element.role ) {
+            if ( role!='ALL' && role==element.role ) {
                 newDataTable.push({
                     'id': k+1,
                     'fid': element.fid,
@@ -207,7 +203,7 @@ export default function StatsGiocatori(props) {
 
     const handlePresence = ( percentile ) => {
         let presenceBtn = document.querySelectorAll('.presence-filter a');
-        console.log(percentile)
+        // console.log(percentile)
         presenceBtn.forEach( (item, k) => {
             item.style.backgroundColor = 'rgba(57, 78, 106, 0.5)'
             if ( item.dataset.percentile==percentile ) {
@@ -216,14 +212,49 @@ export default function StatsGiocatori(props) {
             }
         })
 
+        let percentileMatch = 0;
+        if ( percentile=='25%' ) percentileMatch = 38*0.25;
+        if ( percentile=='50%' ) percentileMatch = 38*0.50;
+        if ( percentile=='75%' ) percentileMatch = 38*0.75;
 
+        let newDataTable = []
+        let dataTableForSearch = srcDataTable
+        dataTableForSearch.forEach( (element, k) => {
+            console.log(percentileMatch)
+            console.log(element.pg)
+            if ( percentile!='0' && element.pg>=percentileMatch ) {
+                newDataTable.push({
+                    'id': k+1,
+                    'fid': element.fid,
+                    'name': element.name.replace("'", '´'),
+                    'role': element.role,
+                    'team': element.team,
+                    'pg': element.pg,
+                    'mv': element.mv,
+                    'mf': element.mf,
+                    'gf': element.gf,
+                    'gs': element.gs,
+                    'rp': element.rp,
+                    'rc': element.rc,
+                    'rf': element.rf,
+                    'rs': element.rs,
+                    'ass': element.ass,
+                    'amm': element.amm,
+                    'esp': element.esp,
+                    'gt': element.gt,
+                })
+            } else if (percentile=='0') {
+                newDataTable = srcDataTable
+            }
+        });
+        setDataTable(newDataTable);
     }
 
     useEffect(() => {
         setDataTable(props.dataParsed)
         setSrcDataTable(props.dataParsed)
         // setPresenceStyle(presenceStyleAttr)
-        handlePresence('0%')
+        // handlePresence('0%')
 	}, []);
 
     return (
