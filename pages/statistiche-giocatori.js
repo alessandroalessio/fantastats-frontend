@@ -70,6 +70,7 @@ const columns = [
         name: 'Sq.',
         selector: row => row.team,
         center: true,
+        sortable: true,
     },
     {
         name: 'PG',
