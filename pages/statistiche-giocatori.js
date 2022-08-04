@@ -149,21 +149,27 @@ export default function StatsGiocatori(props) {
 	const [presenceField, setPresenceField] = useState('25%');
 	// const [presenceStyle, setPresenceStyle] = useState([]);
 
-    const handleRole = (role, props) => {
-        // UI
-        setRoleField(role);
-        let rolesBtn = document.querySelectorAll('.roles-filter a');
-        rolesBtn.forEach( (item, k) => {
-            item.classList.remove("tab-active");
-            if ( item.dataset.role==role ) {
-                item.classList.add("tab-active");                
-            }
-        })
+    const getSearchFilter = () => {
+        let roleFilter = document.querySelectorAll('.roles-filter a.tab-active')[0].dataset.role;
+        let presenceFilter = document.querySelectorAll('.presence-filter a.tab-active')[0].dataset.percentile;
+
+        return {
+            'role': roleFilter,
+            'presence': presenceFilter
+        }
+    }
+
+    const filterData = ( args ) => {
 
         let newDataTable = []
         let dataTableForSearch = srcDataTable
+        console.log('All:'+dataTableForSearch.length)
+
+        /**
+         * Role Filter
+         */
         dataTableForSearch.forEach( (element, k) => {
-            if ( role!='ALL' && role==element.role ) {
+            if ( args.role && args.role!='ALL' && args.role==element.role ) {
                 newDataTable.push({
                     'id': k+1,
                     'fid': element.fid,
@@ -184,11 +190,82 @@ export default function StatsGiocatori(props) {
                     'esp': element.esp,
                     'gt': element.gt,
                 })
-            } else if (role=='ALL') {
+            } else if ( args.role=='ALL' ) {
                 newDataTable = srcDataTable
             }
-        });
-        setDataTable(newDataTable);
+        })
+
+        console.log('Filtered:'+newDataTable.length)
+
+        /**
+         * Presence Filter
+         */
+        console.log(args)
+         let percentileMatch = 0;
+         if ( args.presence=='25%' ) percentileMatch = 38*0.25;
+         if ( args.presence=='50%' ) percentileMatch = 38*0.50;
+         if ( args.presence=='75%' ) percentileMatch = 38*0.75;
+
+         newDataTable.forEach( (element, k) => {
+            console.log(args.presence)
+            console.log(element.pg)
+            console.log(percentileMatch)
+             if ( args.presence!='0' && element.pg<percentileMatch ) {
+                delete newDataTable[k]
+             } else if (args.percentile=='0') {
+                 newDataTable = srcDataTable
+             }
+         });
+         
+         console.log('Filtered After Presence:'+newDataTable.length)
+
+         setDataTable(newDataTable)
+
+    }
+
+    const handleRole = (role, props) => {
+        // UI
+        setRoleField(role);
+        let rolesBtn = document.querySelectorAll('.roles-filter a');
+        rolesBtn.forEach( (item, k) => {
+            item.classList.remove("tab-active");
+            if ( item.dataset.role==role ) {
+                item.classList.add("tab-active");                
+            }
+        })
+
+        let params = getSearchFilter()
+        filterData( params )
+
+        // let newDataTable = []
+        // let dataTableForSearch = srcDataTable
+        // dataTableForSearch.forEach( (element, k) => {
+        //     if ( role!='ALL' && role==element.role ) {
+        //         newDataTable.push({
+        //             'id': k+1,
+        //             'fid': element.fid,
+        //             'name': element.name.replace("'", '´'),
+        //             'role': element.role,
+        //             'team': element.team,
+        //             'pg': element.pg,
+        //             'mv': element.mv,
+        //             'mf': element.mf,
+        //             'gf': element.gf,
+        //             'gs': element.gs,
+        //             'rp': element.rp,
+        //             'rc': element.rc,
+        //             'rf': element.rf,
+        //             'rs': element.rs,
+        //             'ass': element.ass,
+        //             'amm': element.amm,
+        //             'esp': element.esp,
+        //             'gt': element.gt,
+        //         })
+        //     } else if (role=='ALL') {
+        //         newDataTable = srcDataTable
+        //     }
+        // });
+        // setDataTable(newDataTable);
     }
 
     const presenceStyleAttr = {
@@ -207,48 +284,52 @@ export default function StatsGiocatori(props) {
         // console.log(percentile)
         presenceBtn.forEach( (item, k) => {
             item.style.backgroundColor = 'rgba(57, 78, 106, 0.5)'
+            item.classList.remove("tab-active");
             if ( item.dataset.percentile==percentile ) {
                 item.style.backgroundColor = 'rgba(57, 78, 106, 0.75)'
+                item.classList.add("tab-active");
                 setPresenceField(percentile)
             }
         })
 
-        let percentileMatch = 0;
-        if ( percentile=='25%' ) percentileMatch = 38*0.25;
-        if ( percentile=='50%' ) percentileMatch = 38*0.50;
-        if ( percentile=='75%' ) percentileMatch = 38*0.75;
+        // let percentileMatch = 0;
+        // if ( percentile=='25%' ) percentileMatch = 38*0.25;
+        // if ( percentile=='50%' ) percentileMatch = 38*0.50;
+        // if ( percentile=='75%' ) percentileMatch = 38*0.75;
 
-        let newDataTable = []
-        let dataTableForSearch = srcDataTable
-        dataTableForSearch.forEach( (element, k) => {
-            console.log(percentileMatch)
-            console.log(element.pg)
-            if ( percentile!='0' && element.pg>=percentileMatch ) {
-                newDataTable.push({
-                    'id': k+1,
-                    'fid': element.fid,
-                    'name': element.name.replace("'", '´'),
-                    'role': element.role,
-                    'team': element.team,
-                    'pg': element.pg,
-                    'mv': element.mv,
-                    'mf': element.mf,
-                    'gf': element.gf,
-                    'gs': element.gs,
-                    'rp': element.rp,
-                    'rc': element.rc,
-                    'rf': element.rf,
-                    'rs': element.rs,
-                    'ass': element.ass,
-                    'amm': element.amm,
-                    'esp': element.esp,
-                    'gt': element.gt,
-                })
-            } else if (percentile=='0') {
-                newDataTable = srcDataTable
-            }
-        });
-        setDataTable(newDataTable);
+        // let newDataTable = []
+        // let dataTableForSearch = srcDataTable
+        // dataTableForSearch.forEach( (element, k) => {
+        //     if ( percentile!='0' && element.pg>=percentileMatch ) {
+        //         newDataTable.push({
+        //             'id': k+1,
+        //             'fid': element.fid,
+        //             'name': element.name.replace("'", '´'),
+        //             'role': element.role,
+        //             'team': element.team,
+        //             'pg': element.pg,
+        //             'mv': element.mv,
+        //             'mf': element.mf,
+        //             'gf': element.gf,
+        //             'gs': element.gs,
+        //             'rp': element.rp,
+        //             'rc': element.rc,
+        //             'rf': element.rf,
+        //             'rs': element.rs,
+        //             'ass': element.ass,
+        //             'amm': element.amm,
+        //             'esp': element.esp,
+        //             'gt': element.gt,
+        //         })
+        //     } else if (percentile=='0') {
+        //         newDataTable = srcDataTable
+        //     }
+        // });
+        // setDataTable(newDataTable);
+
+        
+        let params = getSearchFilter()
+        filterData( params )
     }
 
     useEffect(() => {
