@@ -138,18 +138,17 @@ const columns = [
     }
 ];
 
+
 export default function StatsGiocatori(props) {
 
     const [srcDataTable, setSrcDataTable] = useState([]);
     const [dataTable, setDataTable] = useState([]);
-	// const [loading, setLoading] = useState(false);
-	// const [totalRows, setTotalRows] = useState(0);
-	// const [perPage, setPerPage] = useState(25);
+    const [fullDataTable, setFullDataTable] = useState(props.dataParsed);
 	const [roleField, setRoleField] = useState('ALL');
 	const [presenceField, setPresenceField] = useState('25%');
-	// const [presenceStyle, setPresenceStyle] = useState([]);
 
     const getSearchFilter = () => {
+        setDataTable([])
         let roleFilter = document.querySelectorAll('.roles-filter a.tab-active')[0].dataset.role;
         let presenceFilter = document.querySelectorAll('.presence-filter a.tab-active')[0].dataset.percentile;
 
@@ -161,65 +160,49 @@ export default function StatsGiocatori(props) {
 
     const filterData = ( args ) => {
 
-        let newDataTable = []
-        let dataTableForSearch = srcDataTable
-        console.log('All:'+dataTableForSearch.length)
+        var dataTableForSearch = props.dataParsed
+        var newDataTable = dataTableForSearch
+        const dataTableForOutput = []
+        console.log('All:'+newDataTable.length)
 
-        /**
-         * Role Filter
-         */
-        dataTableForSearch.forEach( (element, k) => {
-            if ( args.role && args.role!='ALL' && args.role==element.role ) {
-                newDataTable.push({
-                    'id': k+1,
-                    'fid': element.fid,
-                    'name': element.name.replace("'", '´'),
-                    'role': element.role,
-                    'team': element.team,
-                    'pg': element.pg,
-                    'mv': element.mv,
-                    'mf': element.mf,
-                    'gf': element.gf,
-                    'gs': element.gs,
-                    'rp': element.rp,
-                    'rc': element.rc,
-                    'rf': element.rf,
-                    'rs': element.rs,
-                    'ass': element.ass,
-                    'amm': element.amm,
-                    'esp': element.esp,
-                    'gt': element.gt,
-                })
-            } else if ( args.role=='ALL' ) {
-                newDataTable = srcDataTable
-            }
-        })
+        if ( args.role!='ALL' ) {
+            newDataTable.forEach( (element, k) => {
+                if ( element.role==args.role ) {
+                    console.log(args.role)
+                    dataTableForOutput.push(element);
+                }
+            })
+            // console.log('Filtered 1:'+dataTableForOutput.length)
+            // console.log('Filtered:'+newDataTable.length)
+        }
 
-        console.log('Filtered:'+newDataTable.length)
 
         /**
          * Presence Filter
          */
-        console.log(args)
-         let percentileMatch = 0;
-         if ( args.presence=='25%' ) percentileMatch = 38*0.25;
-         if ( args.presence=='50%' ) percentileMatch = 38*0.50;
-         if ( args.presence=='75%' ) percentileMatch = 38*0.75;
+        if (args.presence!='0%') {
+            const tmpDataTableForOutput = dataTableForOutput
+            dataTableForOutput = []
+             var percentileMatch = 0;
+             if ( args.presence=='25%' ) percentileMatch = 38*0.25;
+             if ( args.presence=='50%' ) percentileMatch = 38*0.50;
+             if ( args.presence=='75%' ) percentileMatch = 38*0.75;
+    
+            // console.log(percentileMatch)
+    
+            tmpDataTableForOutput.forEach( (elementPrs, kPrs) => {
+                 if ( elementPrs.pg>percentileMatch ) {
+                    console.log(args.presence)
+                    dataTableForOutput.push(elementPrs);
+                 }
+             });
+            //  console.log('Filtered After Presence:'+dataTableForOutput.length)
+            //  console.log(newDataTable)
+        }
 
-         newDataTable.forEach( (element, k) => {
-            console.log(args.presence)
-            console.log(element.pg)
-            console.log(percentileMatch)
-             if ( args.presence!='0' && element.pg<percentileMatch ) {
-                delete newDataTable[k]
-             } else if (args.percentile=='0') {
-                 newDataTable = srcDataTable
-             }
-         });
-         
-         console.log('Filtered After Presence:'+newDataTable.length)
-
-         setDataTable(newDataTable)
+        //  setDataTable(newDataTable)
+        //  console.log('===================')
+         return dataTableForOutput
 
     }
 
@@ -235,37 +218,8 @@ export default function StatsGiocatori(props) {
         })
 
         let params = getSearchFilter()
-        filterData( params )
-
-        // let newDataTable = []
-        // let dataTableForSearch = srcDataTable
-        // dataTableForSearch.forEach( (element, k) => {
-        //     if ( role!='ALL' && role==element.role ) {
-        //         newDataTable.push({
-        //             'id': k+1,
-        //             'fid': element.fid,
-        //             'name': element.name.replace("'", '´'),
-        //             'role': element.role,
-        //             'team': element.team,
-        //             'pg': element.pg,
-        //             'mv': element.mv,
-        //             'mf': element.mf,
-        //             'gf': element.gf,
-        //             'gs': element.gs,
-        //             'rp': element.rp,
-        //             'rc': element.rc,
-        //             'rf': element.rf,
-        //             'rs': element.rs,
-        //             'ass': element.ass,
-        //             'amm': element.amm,
-        //             'esp': element.esp,
-        //             'gt': element.gt,
-        //         })
-        //     } else if (role=='ALL') {
-        //         newDataTable = srcDataTable
-        //     }
-        // });
-        // setDataTable(newDataTable);
+        let filteredData = filterData( params )
+        setDataTable(filteredData)
     }
 
     const presenceStyleAttr = {
@@ -291,52 +245,18 @@ export default function StatsGiocatori(props) {
                 setPresenceField(percentile)
             }
         })
-
-        // let percentileMatch = 0;
-        // if ( percentile=='25%' ) percentileMatch = 38*0.25;
-        // if ( percentile=='50%' ) percentileMatch = 38*0.50;
-        // if ( percentile=='75%' ) percentileMatch = 38*0.75;
-
-        // let newDataTable = []
-        // let dataTableForSearch = srcDataTable
-        // dataTableForSearch.forEach( (element, k) => {
-        //     if ( percentile!='0' && element.pg>=percentileMatch ) {
-        //         newDataTable.push({
-        //             'id': k+1,
-        //             'fid': element.fid,
-        //             'name': element.name.replace("'", '´'),
-        //             'role': element.role,
-        //             'team': element.team,
-        //             'pg': element.pg,
-        //             'mv': element.mv,
-        //             'mf': element.mf,
-        //             'gf': element.gf,
-        //             'gs': element.gs,
-        //             'rp': element.rp,
-        //             'rc': element.rc,
-        //             'rf': element.rf,
-        //             'rs': element.rs,
-        //             'ass': element.ass,
-        //             'amm': element.amm,
-        //             'esp': element.esp,
-        //             'gt': element.gt,
-        //         })
-        //     } else if (percentile=='0') {
-        //         newDataTable = srcDataTable
-        //     }
-        // });
-        // setDataTable(newDataTable);
-
         
         let params = getSearchFilter()
-        filterData( params )
+        let filteredData = filterData( params )
+        setDataTable(filteredData)
+
     }
 
     useEffect(() => {
         setDataTable(props.dataParsed)
-        setSrcDataTable(props.dataParsed)
+        // setSrcDataTable(props.dataParsed)
         // setPresenceStyle(presenceStyleAttr)
-        // handlePresence('0%')
+        handlePresence('0%')
 	}, []);
 
     return (
