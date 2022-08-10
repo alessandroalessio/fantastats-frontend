@@ -168,7 +168,7 @@ export default function StatsGiocatori(props) {
         if ( args.role!='ALL' ) {
             newDataTable.forEach( (element, k) => {
                 if ( element.role==args.role ) {
-                    console.log(args.role)
+                    // console.log(args.role)
                     dataTableForOutput.push(element);
                 }
             })
@@ -192,12 +192,28 @@ export default function StatsGiocatori(props) {
     
             tmpDataTableForOutput.forEach( (elementPrs, kPrs) => {
                  if ( elementPrs.pg>percentileMatch ) {
-                    console.log(args.presence)
+                    // console.log(args.presence)
                     dataTableForOutput.push(elementPrs);
                  }
              });
             //  console.log('Filtered After Presence:'+dataTableForOutput.length)
             //  console.log(newDataTable)
+        }
+
+        /** Filter by Search */
+        let searchField = document.getElementById('searchField').value;
+        if ( searchField.length>=3 ){
+            const tmpDataTableForOutput2 = dataTableForOutput
+            dataTableForOutput = []
+
+            tmpDataTableForOutput2.forEach( (elementName, kName) => {
+                var strSearch = elementName.name.substring(0, searchField.length)
+                // console.log(strSearch.toLowerCase())
+                // console.log(searchField.toLowerCase())
+                if (  strSearch.toLowerCase()==searchField.toLowerCase() ) {
+                    dataTableForOutput.push(elementName);
+                }
+            });
         }
 
         //  setDataTable(newDataTable)
@@ -252,6 +268,12 @@ export default function StatsGiocatori(props) {
 
     }
 
+    const handleSearch = () => {   
+        let params = getSearchFilter()
+        let filteredData = filterData( params )
+        setDataTable(filteredData)
+    }
+
     useEffect(() => {
         setDataTable(props.dataParsed)
         // setSrcDataTable(props.dataParsed)
@@ -278,11 +300,26 @@ export default function StatsGiocatori(props) {
 
                     <div className="filters mb-4">
                         <div className="tabs roles-filter justify-center mb-2">
-                            <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>Tutti</a> 
-                            <a className="tab tab-bordered" data-role="P" onClick={ () => { handleRole('P') } }>Portieri</a> 
-                            <a className="tab tab-bordered" data-role="D" onClick={ () => { handleRole('D') } }>Difensori</a> 
-                            <a className="tab tab-bordered" data-role="C" onClick={ () => { handleRole('C') } }>Centrocampisti</a>
-                            <a className="tab tab-bordered" data-role="A" onClick={ () => { handleRole('A') } }>Attaccanti</a>
+                            <a className="tab tab-active tab-bordered" data-role="ALL" onClick={ () => { handleRole('ALL') } }>
+                                <span className="md:hidden">Tutti</span>
+                                <span className="hidden md:inline">Tutti</span>
+                            </a> 
+                            <a className="tab tab-bordered" data-role="P" onClick={ () => { handleRole('P') } }>
+                                <span className="md:hidden">P</span>
+                                <span className="hidden md:inline">Portieri</span>
+                            </a> 
+                            <a className="tab tab-bordered" data-role="D" onClick={ () => { handleRole('D') } }>
+                                <span className="md:hidden">D</span>
+                                <span className="hidden md:inline">Difensori</span>
+                            </a> 
+                            <a className="tab tab-bordered" data-role="C" onClick={ () => { handleRole('C') } }>
+                                <span className="md:hidden">C</span>
+                                <span className="hidden md:inline">Centrocampisti</span>
+                            </a>
+                            <a className="tab tab-bordered" data-role="A" onClick={ () => { handleRole('A') } }>
+                                <span className="md:hidden">A</span>
+                                <span className="hidden md:inline">Attaccanti</span>
+                            </a>
                         </div>
                         {/* <div className="search-filter text-center">
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
@@ -290,11 +327,17 @@ export default function StatsGiocatori(props) {
                         <div className="presence-filter flex gap-x-4 justify-center text-sm pt-2">
                             <span className="italic opacity-75">Presenze:</span>
                             <ul className="flex gap-x-4">
-                                <li><a style={ presenceStyleAttr } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>Non impostato</a></li>
+                                <li><a style={ presenceStyleAttr } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>
+                                <span className="md:hidden">-</span>
+                                <span className="hidden md:inline">Non impostato</span>
+                            </a></li>
                                 <li><a style={ presenceStyleAttr } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>&gt;25%</a></li>
                                 <li><a style={ presenceStyleAttr } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>&gt;50%</a></li>
                                 <li><a style={ presenceStyleAttr } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>&gt;75%</a></li>
                             </ul>
+                        </div>
+                        <div className="search-filter mt-4 px-10 md:px-0 text-center">
+                            <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div>
                     </div>
 
