@@ -6,3 +6,70 @@
 body{
     font-family: 'Poppins';
 }
+
+
+/** Roles */
+.role-P{ 
+    background: #ed618b;
+    color: #6b253a;
+}
+.role-D{ 
+    background: #619bed;
+    color: #24426b;
+}
+.role-C{ 
+    background: #cfed61;
+    color: #576622;
+}
+.role-A{ 
+    background: #61ed68;
+    color: #227026;
+}
+
+
+.role-sm{
+    padding: 0.125em 0.6em;
+    border-radius: 1em;
+}
+
+/** Teams */
+.team-atalanta{ background: #0471BC; color: #fff; border: 1px solid  #000; }
+.team-bologna{ background: #EE3D25; color: #2E3192; border: 1px solid  #E7D210; }
+.team-cagliari{ background: #E51643; color: #012350; border: 1px solid  #012350; }
+.team-empoli{ background: #407DBF; color: #fff; border: 1px solid  #143459; }
+.team-fiorentina{ background: #B73AA3; color: #fff; border: 1px solid  #E7D210; }
+.team-genoa{ background: #F4475B; color: #014294; border: 1px solid  #014294; }
+.team-inter{ background: #0232A3; color: #fff; border: 1px solid  #000; }
+.team-juventus{ background: #fff; color: #000; border: 1px solid  #000; }
+.team-lazio{ background: #A4DCF4; color: #87B9E0; border: 1px solid  #87B9E0; }
+.team-milan{ background: #EC1D2F; color: #fff; border: 1px solid  #000; }
+.team-napoli{ background: #62B3E5; color: #fff; border: 1px solid  #2551A5; }
+.team-roma{ background: #E12A58; color: #F89F26; border: 1px solid  #000; }
+.team-salernitana{ background: #841D1C; color: #fff; border: 1px solid  #ECAA23; }
+.team-sampdoria{ background: #176DB3; color: #fff; border: 1px solid  #CE0E24; }
+.team-sassuolo{ background: #10A653; color: #1E1E1C; border: 1px solid  #000; }
+.team-spezia{ background: #fff; color: #000; border: 1px solid  #A79565; }
+.team-torino{ background: #CA3134; color: #fff; border: 1px solid #fff; }
+.team-udinese{ background: #000; color: #fff; border: 1px solid  #000; }
+.team-venezia{ background: #000; color: rgb(255, 106, 7); border: 1px solid  rgb(1, 151, 46); }
+.team-verona{ background: #ffed66; color: #002E70; border: 1px solid  #002E70; }
+.team-monza{ background: #E61537; color: #fff; border: 1px solid  #E61537; }
+.team-cremonese{ background: #7C7E81; color: #ab0209; border: 1px solid  #C9974E; }
+.team-lecce{ background: #F7EE00; color: #ab0209; border: 1px solid  #005D82; }
+
+
+.team-sm{
+    padding: 0.125em 0.3em;
+    border-radius: 1em;
+    text-overflow: ellipsis;
+    width: 65px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+}
+
+
+/** React Data Table */
+.rdt_TableHeadRow{ 
+    font-weight: 700;
+}

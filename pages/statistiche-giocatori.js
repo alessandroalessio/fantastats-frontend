@@ -8,6 +8,7 @@ import DataTable, { createTheme } from 'react-data-table-component';
 
 const commonData = require('../data/common.json')
 
+
 const perPage = 25;
 export async function getStaticProps(context) {
     const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/?page=1&perPage=1000')
@@ -51,6 +52,7 @@ const columns = [
     {
         name: 'NOME',
         selector: row => row.name,
+        minWidth: '160px',
         cell: ( row => (
             <>
                 <Link href={"/giocatore/" + row.fid }>
@@ -64,59 +66,82 @@ const columns = [
     {
         name: 'R',
         selector: row => row.role,
+        maxWidth: '25px',
         center: true,
+        cell: ( row => (
+            <>
+                <span className={'role-sm role-' + row.role}>
+                    {row.role}
+                </span>
+            </>
+        ) )
     },
     {
         name: 'Sq.',
         selector: row => row.team,
         center: true,
         sortable: true,
+        cell: ( row => (
+            <>
+                <span className={'team-sm team-' + row.team.toLowerCase()}>
+                    {row.team}
+                </span>
+            </>
+        ) )
     },
     {
         name: 'PG',
         selector: row => row.pg,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'MV',
         selector: row => row.mv,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'FM',
         selector: row => row.mf,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'GF',
         selector: row => row.gt,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'GS',
         selector: row => row.gs,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'Ass.',
         selector: row => row.ass,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'Amm.',
         selector: row => row.amm,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
     {
         name: 'Esp.',
         selector: row => row.esp,
+        maxWidth: '30px',
         center: true,
         sortable: true,
     },
@@ -163,7 +188,7 @@ export default function StatsGiocatori(props) {
         var dataTableForSearch = props.dataParsed
         var newDataTable = dataTableForSearch
         const dataTableForOutput = []
-        console.log('All:'+newDataTable.length)
+        // console.log('All:'+newDataTable.length)
 
         if ( args.role!='ALL' ) {
             newDataTable.forEach( (element, k) => {
@@ -174,6 +199,10 @@ export default function StatsGiocatori(props) {
             })
             // console.log('Filtered 1:'+dataTableForOutput.length)
             // console.log('Filtered:'+newDataTable.length)
+        } else {
+            newDataTable.forEach( (element, k) => {
+                dataTableForOutput.push(element);
+            })
         }
 
 

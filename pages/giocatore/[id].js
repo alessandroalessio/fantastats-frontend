@@ -51,12 +51,14 @@ export async function getStaticProps(context) {
 
     // Manipulate Yearly Data
     const labelYears = [];
+    const valueMv = [];
     const valueFM = [];
     const valueGol = [];
     const valueAssist = [];
     const valuePresence = [];
     playerStats.forEach(element => {
         labelYears.push(element.year + ' - ' + element.team)
+        valueMv.push(element.mv)
         valueFM.push(element.mf)
         valueGol.push(element.gt)
         valueAssist.push(element.ass)
@@ -74,6 +76,7 @@ export async function getStaticProps(context) {
             playerData: player.data[0],
             statsForCharts: {
                 'labelYears': labelYears.reverse(),
+                'valueMv': valueMv.reverse(),
                 'valueFM': valueFM.reverse(),
                 'valueGol': valueGol.reverse(),
                 'valueAssist': valueAssist.reverse(),
@@ -124,6 +127,12 @@ function StatsGiocatoriSingle(props) {
     const dataForChart = {
         labels,
         datasets: [
+          {
+            label: 'Media',
+            data: props.statsForCharts.valueMv,
+            borderColor: 'rgb(50, 125, 168)',
+            backgroundColor: 'rgba(50, 125, 168, 0.5)',
+          },
           {
             label: 'Fanta Media',
             data: props.statsForCharts.valueFM,

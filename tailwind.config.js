@@ -5,6 +5,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'sans': ['Poppins', 'Arial', 'sans-serif'],
+      'sans-serif': ['Poppins', 'Arial', 'sans-serif']
+    },
     extend: {},
   },
   daisyui: {
