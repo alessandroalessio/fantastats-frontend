@@ -17,7 +17,7 @@ import { Line } from 'react-chartjs-2';
 const commonData = require('../../data/common.json')
 
 export async function getStaticPaths() {
-    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data?perPage=1000')
+    const res = await fetch('https://admin.fantastats.net/api/v2/player-stats-data?perPage=1000')
     const players = await res.json()
     // console.log(players.data)
 
@@ -43,10 +43,10 @@ export async function getStaticProps(context) {
 
     const { params } = context
 
-    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data?id=' + params.id)
+    const res = await fetch('https://admin.fantastats.net/api/v2/player-stats-data?id=' + params.id)
     const player = await res.json()
 
-    const resData = await fetch('http://admin.fantastats.net/api/v2/single-player-stats-data/' + params.id)
+    const resData = await fetch('https://admin.fantastats.net/api/v2/single-player-stats-data/' + params.id)
     const playerStats = await resData.json()
 
     // Manipulate Yearly Data

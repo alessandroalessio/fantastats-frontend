@@ -11,7 +11,7 @@ const commonData = require('../data/common.json')
 
 const perPage = 25;
 export async function getStaticProps(context) {
-    const res = await fetch('http://admin.fantastats.net/api/v2/player-stats-data/?page=1&perPage=1000')
+    const res = await fetch('https://admin.fantastats.net/api/v2/player-stats-data/?page=1&perPage=1000')
     const players = await res.json()
     const data = players.data
     const totalRows = players.total
