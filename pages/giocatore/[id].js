@@ -156,7 +156,7 @@ function StatsGiocatoriSingle(props) {
                 <div className="hero rounded-md">
                     <div className="hero-content text-center">
                         <div className="w-full p-8">
-                            <span className="text-xs block mb-5">
+                            <span className="text-sm block mb-5">
                                 <Link href="/statistiche-giocatori">
                                     <a className="inline-flex items-center opacity-75 hover:opacity-100 cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

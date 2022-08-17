@@ -27,8 +27,8 @@ function Hero(props) {
                             <div className={heroOverlayClasses}></div>
                             <div className="hero-content text-center">
                                 <div className="w-full p-8">
-                                    <h1 className="text-3xl color-secondary-focus font-bold">{ props.title }</h1>
-                                    {props.desc}
+                                    <h1 className="text-xl md:text-3xl color-secondary-focus font-bold">{ props.title }</h1>
+                                    <span className="text-sm md:text-md">{props.desc}</span>
                                     {props.btn}
                                 </div>
                             </div>

@@ -362,18 +362,23 @@ export default function StatsGiocatori(props) {
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div> */}
                         <div className="presence-filter flex gap-x-4 justify-center text-sm pt-2">
-                            <span className="italic opacity-75">Presenze:</span>
-                            <ul className="flex gap-x-4">
-                                <li><a style={ presenceStyleAttr } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>
-                                <span className="md:hidden">-</span>
-                                <span className="hidden md:inline">Non impostato</span>
-                            </a></li>
-                                <li><a style={ presenceStyleAttr } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>&gt;25%</a></li>
-                                <li><a style={ presenceStyleAttr } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>&gt;50%</a></li>
-                                <li><a style={ presenceStyleAttr } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>&gt;75%</a></li>
+                            <span className="italic opacity-75">
+                                <span className="hidden md:display">Presenze:</span>
+                                <span className="inline md:hidden">P:</span>
+                            </span>
+                            <ul className="flex gap-x-2 md:gap-x-4">
+                                <li>
+                                    <a className="text-sm" style={ presenceStyleAttr } data-percentile="0%" onClick={ () => { handlePresence('0%') } }>
+                                        <span className="md:hidden">-</span>
+                                        <span className="hidden md:inline">Non impostato</span>
+                                    </a>
+                                </li>
+                                <li><a className="text-sm" style={ presenceStyleAttr } data-percentile="25%" onClick={ () => { handlePresence('25%') } }>&gt;25%</a></li>
+                                <li><a className="text-sm" style={ presenceStyleAttr } data-percentile="50%" onClick={ () => { handlePresence('50%') } }>&gt;50%</a></li>
+                                <li><a className="text-sm" style={ presenceStyleAttr } data-percentile="75%" onClick={ () => { handlePresence('75%') } }>&gt;75%</a></li>
                             </ul>
                         </div>
-                        <div className="search-filter mt-4 px-10 md:px-0 text-center">
+                        <div className="search-filter mt-4 md:px-10 md:px-0 text-center">
                             <input id="searchField" type="text" placeholder="Quale giocatore stai cercando?" className="input input-bordered w-full max-w-lg" onChange={handleSearch} />
                         </div>
                     </div>
