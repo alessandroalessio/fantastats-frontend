@@ -92,7 +92,6 @@ function StatsGiocatoriSingle(props) {
     roleExtended['A'] = 'Attaccante'
   
     const labels = props.statsForCharts.labelYears;
-    // const labels = [ '2019-21', '2020', '2021' ]
     const dataForChart = {
         labels,
         datasets: [
@@ -119,6 +118,18 @@ function StatsGiocatoriSingle(props) {
             data: props.statsForCharts.valueAssist,
             borderColor: 'rgb(70, 58, 161)',
             backgroundColor: 'rgba(70, 58, 161, 0.5)',
+          },
+          {
+            label: 'Amm.',
+            data: props.statsForCharts.valueAmm,
+            borderColor: 'rgb(237, 237, 107)',
+            backgroundColor: 'rgba(237, 237, 107, 0.5)',
+          },
+          {
+            label: 'Esp.',
+            data: props.statsForCharts.valueEsp,
+            borderColor: 'rgb(201, 77, 68)',
+            backgroundColor: 'rgba(201, 77, 68, 0.5)',
           },
           {
             label: 'Presenze',

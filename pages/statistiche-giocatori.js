@@ -37,6 +37,7 @@ export async function getStaticProps(context) {
             'amm': element.amm,
             'esp': element.esp,
             'gt': element.gt,
+            'gxp': element.gxp,
         })
     });
 
@@ -106,6 +107,13 @@ const columns = [
     {
         name: 'FM',
         selector: row => row.mf,
+        maxWidth: '30px',
+        center: true,
+        sortable: true,
+    },
+    {
+        name: 'GxP',
+        selector: row => row.gxp,
         maxWidth: '30px',
         center: true,
         sortable: true,
