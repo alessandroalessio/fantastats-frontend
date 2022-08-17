@@ -1,4 +1,0 @@
-[
-    0: { 'id': 1, 'name': 'Giocatore', 'role': 'A', 'team': 'Squadra 1' },
-    1: { 'id': 2, 'name': 'Giocatore', 'role': 'A', 'team': 'Squadra 1' },
-]

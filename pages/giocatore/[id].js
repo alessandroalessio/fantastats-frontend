@@ -13,6 +13,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { getPlayerInfo, getPlayerStatsYearly } from '../../lib/class.player';
 
 const commonData = require('../../data/common.json')
 
@@ -43,45 +44,13 @@ export async function getStaticProps(context) {
 
     const { params } = context
 
-    const res = await fetch('https://api.fantastats.net/api/v2/player-stats-data?id=' + params.id)
-    const player = await res.json()
-
-    const resData = await fetch('https://api.fantastats.net/api/v2/single-player-stats-data/' + params.id)
-    const playerStats = await resData.json()
-
-    // Manipulate Yearly Data
-    const labelYears = [];
-    const valueMv = [];
-    const valueFM = [];
-    const valueGol = [];
-    const valueAssist = [];
-    const valuePresence = [];
-    playerStats.forEach(element => {
-        labelYears.push(element.year + ' - ' + element.team)
-        valueMv.push(element.mv)
-        valueFM.push(element.mf)
-        valueGol.push(element.gt)
-        valueAssist.push(element.ass)
-        valuePresence.push(element.pg)
-    });
-    // console.log(player)
-    // console.log(playerStats) // Non lo vedi nella console ma nel CMD dove esegui next
-    // console.log(labelYears) // Non lo vedi nella console ma nel CMD dove esegui next
-    // console.log(valueFM) // Non lo vedi nella console ma nel CMD dove esegui next
-    // console.log(valueGol) // Non lo vedi nella console ma nel CMD dove esegui next
-    // console.log(valueAssist) // Non lo vedi nella console ma nel CMD dove esegui next
+    const timer = ms => new Promise(res => setTimeout(res, ms))
+    await timer(2000);
 
     return {
         props: {
-            playerData: player.data[0],
-            statsForCharts: {
-                'labelYears': labelYears.reverse(),
-                'valueMv': valueMv.reverse(),
-                'valueFM': valueFM.reverse(),
-                'valueGol': valueGol.reverse(),
-                'valueAssist': valueAssist.reverse(),
-                'valuePresence': valuePresence.reverse(),
-            }
+            playerData: await getPlayerInfo(params.id),
+            statsForCharts: await getPlayerStatsYearly(params.id)
         }
     }
 }
