@@ -50,6 +50,37 @@ export default function Home() {
 						</div>
 					</div>
 				</section>
+				<section className="container mx-auto text-gray-600 mt-12 flex gap-4 justify-center">
+					<div className="border md:w-1/4">
+						<h2 className="font-bold border-b p-4">Top 10 Portieri</h2>
+						<ul className="m-4">
+							<li className="border-b p-2">Handanovic</li>
+							<li className="border-b p-2">Peruzzi</li>
+							<li className="border-b p-2">Pagliuca</li>
+							<li className="p-2">Frey</li>
+						</ul>
+					</div>
+					<div className="border md:w-1/4">
+						<h2 className="font-bold border-b p-4">Top 10 Difensori</h2>
+						<ul className="m-4">
+							<li></li>
+						</ul>
+					</div>
+					<div className="border md:w-1/4">
+						<h2 className="font-bold border-b p-4">
+							Top 10 Centrocampisti
+						</h2>
+						<ul className="m-4">
+							<li></li>
+						</ul>
+					</div>
+					<div className="border md:w-1/4">
+						<h2 className="font-bold border-b p-4">Top 10 Attaccanti</h2>
+						<ul className="m-4">
+							<li></li>
+						</ul>
+					</div>
+				</section>
 			</main>
 		</div>
 	);
