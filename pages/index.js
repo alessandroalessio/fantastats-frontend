@@ -1,11 +1,41 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import mainImageSrc from '../public/main.jpg';
 
 const commonData = require('../data/common.json');
 
-export default function Home() {
+export async function getStaticProps(context) {
+	const resP = await fetch(
+		'https://api.fantastats.net/api/v2/players/top10/P'
+	);
+	const por = await resP.json();
+
+	const resD = await fetch(
+		'https://api.fantastats.net/api/v2/players/top10/D'
+	);
+	const dif = await resD.json();
+
+	const resC = await fetch(
+		'https://api.fantastats.net/api/v2/players/top10/C'
+	);
+	const cen = await resC.json();
+
+	const resA = await fetch(
+		'https://api.fantastats.net/api/v2/players/top10/A'
+	);
+	const att = await resA.json();
+
+	return {
+		props: {
+			por,
+			dif,
+			cen,
+			att,
+		},
+	};
+}
+
+export default function Home({ por, dif, cen, att }) {
 	return (
 		<div>
 			<Head>
@@ -24,7 +54,7 @@ export default function Home() {
 					<div className="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
 						<div className="rounded-full p-0 m-0 shadow-lg overflow-hidden pt-1.5 pl-1.5 pr-1.5 mb-8">
 							<Image
-								src={mainImageSrc}
+								src="/main.jpg"
 								alt={commonData.SiteName}
 								width={320}
 								height={320}
@@ -54,16 +84,25 @@ export default function Home() {
 					<div className="border md:w-1/4">
 						<h2 className="font-bold border-b p-4">Top 10 Portieri</h2>
 						<ul className="m-4">
-							<li className="border-b p-2">Handanovic</li>
-							<li className="border-b p-2">Peruzzi</li>
-							<li className="border-b p-2">Pagliuca</li>
-							<li className="p-2">Frey</li>
+							{por.map((item) => {
+								return (
+									<li key={item.fid} className="border-b p-2">
+										{item.name}
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 					<div className="border md:w-1/4">
 						<h2 className="font-bold border-b p-4">Top 10 Difensori</h2>
 						<ul className="m-4">
-							<li></li>
+							{dif.map((item) => {
+								return (
+									<li key={item.fid} className="border-b p-2">
+										{item.name}
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 					<div className="border md:w-1/4">
@@ -71,13 +110,25 @@ export default function Home() {
 							Top 10 Centrocampisti
 						</h2>
 						<ul className="m-4">
-							<li></li>
+							{cen.map((item) => {
+								return (
+									<li key={item.fid} className="border-b p-2">
+										{item.name}
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 					<div className="border md:w-1/4">
 						<h2 className="font-bold border-b p-4">Top 10 Attaccanti</h2>
 						<ul className="m-4">
-							<li></li>
+							{att.map((item) => {
+								return (
+									<li key={item.fid} className="border-b p-2">
+										{item.name}
+									</li>
+								);
+							})}
 						</ul>
 					</div>
 				</section>
