@@ -56,7 +56,7 @@ function Navbar() {
 						</li>
 						<li className="m-2">
 							<Link href="/fasce-asta">
-								<a className="p-2">Fasce per l'asta</a>
+								<a className="p-2">Fasce per l&apos;asta</a>
 							</Link>
 						</li>
 					</ul>
