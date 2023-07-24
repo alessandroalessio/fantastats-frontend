@@ -80,32 +80,32 @@ export default function Home({ por, dif, cen, att }) {
 						</div>
 					</div>
 				</section>
-				<section className="container mx-auto text-gray-600 mt-12 flex gap-4 justify-center">
-					<div className="border md:w-1/4">
+				<section className="container mx-auto text-gray-600 mt-12 md:flex gap-4 justify-center">
+					<div className="border md:w-1/4 mx-4 md:mx-auto shadow-lg mb-2 md:shadow-none">
 						<h2 className="font-bold border-b p-4">Top 10 Portieri</h2>
 						<ul className="m-4">
 							{por.map((item) => {
 								return (
 									<li key={item.fid} className="border-b p-2">
-										{item.name}
+										{item.name} <small>FM {item.mf}</small>
 									</li>
 								);
 							})}
 						</ul>
 					</div>
-					<div className="border md:w-1/4">
+					<div className="border md:w-1/4 mx-4 md:mx-auto shadow-lg mb-2 md:shadow-none">
 						<h2 className="font-bold border-b p-4">Top 10 Difensori</h2>
 						<ul className="m-4">
 							{dif.map((item) => {
 								return (
 									<li key={item.fid} className="border-b p-2">
-										{item.name}
+										{item.name} <small>FM {item.mf}</small>
 									</li>
 								);
 							})}
 						</ul>
 					</div>
-					<div className="border md:w-1/4">
+					<div className="border md:w-1/4 mx-4 md:mx-auto shadow-lg mb-2 md:shadow-none">
 						<h2 className="font-bold border-b p-4">
 							Top 10 Centrocampisti
 						</h2>
@@ -113,25 +113,31 @@ export default function Home({ por, dif, cen, att }) {
 							{cen.map((item) => {
 								return (
 									<li key={item.fid} className="border-b p-2">
-										{item.name}
+										{item.name} <small>FM {item.mf}</small>
 									</li>
 								);
 							})}
 						</ul>
 					</div>
-					<div className="border md:w-1/4">
+					<div className="border md:w-1/4 mx-4 md:mx-auto shadow-lg mb-2 md:shadow-none">
 						<h2 className="font-bold border-b p-4">Top 10 Attaccanti</h2>
 						<ul className="m-4">
 							{att.map((item) => {
 								return (
 									<li key={item.fid} className="border-b p-2">
-										{item.name}
+										{item.name} <small>FM {item.mf}</small>
 									</li>
 								);
 							})}
 						</ul>
 					</div>
 				</section>
+				<div className="container mx-auto text-center">
+					<small>
+						ATTENZIONE: I dati mostrati sono relativi alle medie degli
+						ultimi 5 anni
+					</small>
+				</div>
 			</main>
 		</div>
 	);
