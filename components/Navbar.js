@@ -34,6 +34,16 @@ function Navbar() {
 									<a>Statistiche giocatori</a>
 								</Link>
 							</li>
+							<li>
+								<Link href="/fasce-asta">
+									<a>Fasce per l&apos;asta</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/calcola-potenziale">
+									<a>Calcola potenziale</a>
+								</Link>
+							</li>
 						</ul>
 					</div>
 					<Link href="/">
@@ -57,6 +67,11 @@ function Navbar() {
 						<li className="m-2">
 							<Link href="/fasce-asta">
 								<a className="p-2">Fasce per l&apos;asta</a>
+							</Link>
+						</li>
+						<li>
+							<Link href="/calcola-potenziale">
+								<a className="p-2">Calcola potenziale</a>
 							</Link>
 						</li>
 					</ul>
