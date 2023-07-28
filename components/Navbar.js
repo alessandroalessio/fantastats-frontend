@@ -55,7 +55,7 @@ function Navbar() {
 						<a className="normal-case">
 							<div className="block text-xl md:text-3xl font-bold tracking-tighter inline-flex gap-2 items-start">
 								{commonData.SiteName}
-								<div class="badge badge-accent text-sm tracking-tighter uppercase font-light">
+								<div className="badge badge-accent text-sm tracking-tighter uppercase font-light">
 									beta
 								</div>
 							</div>
