@@ -31,7 +31,7 @@ function Navbar() {
 						>
 							<li>
 								<Link href="/statistiche-giocatori">
-									<a>Statistiche giocatori</a>
+									<a>Statistiche totali</a>
 								</Link>
 							</li>
 							<li>
@@ -44,13 +44,21 @@ function Navbar() {
 									<a>Calcola potenziale</a>
 								</Link>
 							</li>
+							<li>
+								<Link href="/compara-giocatori">
+									<a>Comparatore</a>
+								</Link>
+							</li>
 						</ul>
 					</div>
 					<Link href="/">
 						<a className="normal-case">
-							<p className="block text-xl md:text-3xl font-bold tracking-tighter">
+							<div className="block text-xl md:text-3xl font-bold tracking-tighter inline-flex gap-2 items-start">
 								{commonData.SiteName}
-							</p>
+								<div class="badge badge-accent text-sm tracking-tighter uppercase font-light">
+									beta
+								</div>
+							</div>
 							<span className="block text-2xs font-semibold italic text-accent leading-3 text-center sm:text-left">
 								{commonData.Slogan}
 							</span>
@@ -60,19 +68,38 @@ function Navbar() {
 				<div className="navbar-center hidden lg:flex">
 					<ul className="menu menu-horizontal p-0">
 						<li className="m-2">
-							<Link href="/statistiche-giocatori">
-								<a className="p-2">Statistiche giocatori</a>
-							</Link>
+							<details className="dropdown">
+								<summary>Statistiche</summary>
+								<ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+									<li>
+										<Link href="/statistiche-giocatori">
+											<a>Statistiche totali</a>
+										</Link>
+									</li>
+								</ul>
+							</details>
 						</li>
 						<li className="m-2">
 							<Link href="/fasce-asta">
 								<a className="p-2">Fasce per l&apos;asta</a>
 							</Link>
 						</li>
-						<li>
-							<Link href="/calcola-potenziale">
-								<a className="p-2">Calcola potenziale</a>
-							</Link>
+						<li className="m-2">
+							<details className="dropdown">
+								<summary>Tools</summary>
+								<ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+									<li>
+										<Link href="/calcola-potenziale">
+											<a>Calc. potenziale squadra</a>
+										</Link>
+									</li>
+									<li>
+										<Link href="/compara-giocatori">
+											<a>Comparatore</a>
+										</Link>
+									</li>
+								</ul>
+							</details>
 						</li>
 					</ul>
 				</div>

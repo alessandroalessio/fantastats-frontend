@@ -2,80 +2,175 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body{
-    font-family: 'Poppins';
+body {
+	font-family: 'Poppins';
 }
 
 /** Navbar */
-@media only screen and (max-width: 767px) { 
-    .navbar-start{
-        width: 100%;
-    }
+@media only screen and (max-width: 767px) {
+	.navbar-start {
+		width: 100%;
+	}
+}
+
+.dropdown summary {
+	@apply inline-flex items-center gap-1;
+}
+.dropdown summary::before {
+	content: url('https://api.iconify.design/ph/caret-down-bold.svg?color=%23c75eb6');
 }
 
 /** Roles */
-.role-P{ 
-    background: #ed618b;
-    color: #6b253a;
+.role-P {
+	background: #ed618b;
+	color: #6b253a;
 }
-.role-D{ 
-    background: #619bed;
-    color: #24426b;
+.role-D {
+	background: #619bed;
+	color: #24426b;
 }
-.role-C{ 
-    background: #cfed61;
-    color: #576622;
+.role-C {
+	background: #cfed61;
+	color: #576622;
 }
-.role-A{ 
-    background: #61ed68;
-    color: #227026;
+.role-A {
+	background: #61ed68;
+	color: #227026;
 }
 
-
-.role-sm{
-    padding: 0.125em 0.6em;
-    border-radius: 1em;
+.role-sm {
+	padding: 0.125em 0.6em;
+	border-radius: 1em;
 }
 
 /** Teams */
-.team-atalanta{ background: #0471BC; color: #fff; border: 1px solid  #000; }
-.team-bologna{ background: #EE3D25; color: #2E3192; border: 1px solid  #E7D210; }
-.team-cagliari{ background: #E51643; color: #012350; border: 1px solid  #012350; }
-.team-empoli{ background: #407DBF; color: #fff; border: 1px solid  #143459; }
-.team-fiorentina{ background: #B73AA3; color: #fff; border: 1px solid  #E7D210; }
-.team-genoa{ background: #F4475B; color: #014294; border: 1px solid  #014294; }
-.team-inter{ background: #0232A3; color: #fff; border: 1px solid  #000; }
-.team-juventus{ background: #fff; color: #000; border: 1px solid  #000; }
-.team-lazio{ background: #A4DCF4; color: #87B9E0; border: 1px solid  #87B9E0; }
-.team-milan{ background: #EC1D2F; color: #fff; border: 1px solid  #000; }
-.team-napoli{ background: #62B3E5; color: #fff; border: 1px solid  #2551A5; }
-.team-roma{ background: #E12A58; color: #F89F26; border: 1px solid  #000; }
-.team-salernitana{ background: #841D1C; color: #fff; border: 1px solid  #ECAA23; }
-.team-sampdoria{ background: #176DB3; color: #fff; border: 1px solid  #CE0E24; }
-.team-sassuolo{ background: #10A653; color: #1E1E1C; border: 1px solid  #000; }
-.team-spezia{ background: #fff; color: #000; border: 1px solid  #A79565; }
-.team-torino{ background: #CA3134; color: #fff; border: 1px solid #fff; }
-.team-udinese{ background: #000; color: #fff; border: 1px solid  #000; }
-.team-venezia{ background: #000; color: rgb(255, 106, 7); border: 1px solid  rgb(1, 151, 46); }
-.team-verona{ background: #ffed66; color: #002E70; border: 1px solid  #002E70; }
-.team-monza{ background: #E61537; color: #fff; border: 1px solid  #E61537; }
-.team-cremonese{ background: #7C7E81; color: #ab0209; border: 1px solid  #C9974E; }
-.team-lecce{ background: #F7EE00; color: #ab0209; border: 1px solid  #005D82; }
-
-
-.team-sm{
-    padding: 0.125em 0.3em;
-    border-radius: 1em;
-    text-overflow: ellipsis;
-    width: 65px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: center;
+.team-atalanta {
+	background: #0471bc;
+	color: #fff;
+	border: 1px solid #000;
+}
+.team-bologna {
+	background: #ee3d25;
+	color: #2e3192;
+	border: 1px solid #e7d210;
+}
+.team-cagliari {
+	background: #e51643;
+	color: #012350;
+	border: 1px solid #012350;
+}
+.team-empoli {
+	background: #407dbf;
+	color: #fff;
+	border: 1px solid #143459;
+}
+.team-fiorentina {
+	background: #b73aa3;
+	color: #fff;
+	border: 1px solid #e7d210;
+}
+.team-genoa {
+	background: #f4475b;
+	color: #014294;
+	border: 1px solid #014294;
+}
+.team-inter {
+	background: #0232a3;
+	color: #fff;
+	border: 1px solid #000;
+}
+.team-juventus {
+	background: #fff;
+	color: #000;
+	border: 1px solid #000;
+}
+.team-lazio {
+	background: #a4dcf4;
+	color: #87b9e0;
+	border: 1px solid #87b9e0;
+}
+.team-milan {
+	background: #ec1d2f;
+	color: #fff;
+	border: 1px solid #000;
+}
+.team-napoli {
+	background: #62b3e5;
+	color: #fff;
+	border: 1px solid #2551a5;
+}
+.team-roma {
+	background: #e12a58;
+	color: #f89f26;
+	border: 1px solid #000;
+}
+.team-salernitana {
+	background: #841d1c;
+	color: #fff;
+	border: 1px solid #ecaa23;
+}
+.team-sampdoria {
+	background: #176db3;
+	color: #fff;
+	border: 1px solid #ce0e24;
+}
+.team-sassuolo {
+	background: #10a653;
+	color: #1e1e1c;
+	border: 1px solid #000;
+}
+.team-spezia {
+	background: #fff;
+	color: #000;
+	border: 1px solid #a79565;
+}
+.team-torino {
+	background: #ca3134;
+	color: #fff;
+	border: 1px solid #fff;
+}
+.team-udinese {
+	background: #000;
+	color: #fff;
+	border: 1px solid #000;
+}
+.team-venezia {
+	background: #000;
+	color: rgb(255, 106, 7);
+	border: 1px solid rgb(1, 151, 46);
+}
+.team-verona {
+	background: #ffed66;
+	color: #002e70;
+	border: 1px solid #002e70;
+}
+.team-monza {
+	background: #e61537;
+	color: #fff;
+	border: 1px solid #e61537;
+}
+.team-cremonese {
+	background: #7c7e81;
+	color: #ab0209;
+	border: 1px solid #c9974e;
+}
+.team-lecce {
+	background: #f7ee00;
+	color: #ab0209;
+	border: 1px solid #005d82;
 }
 
+.team-sm {
+	padding: 0.125em 0.3em;
+	border-radius: 1em;
+	text-overflow: ellipsis;
+	width: 65px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align: center;
+}
 
 /** React Data Table */
-.rdt_TableHeadRow{ 
-    font-weight: 700;
+.rdt_TableHeadRow {
+	font-weight: 700;
 }

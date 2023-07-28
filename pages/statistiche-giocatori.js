@@ -187,6 +187,14 @@ export default function StatsGiocatori(props) {
 	const [roleField, setRoleField] = useState('ALL');
 	const [presenceField, setPresenceField] = useState('25%');
 
+	const yearsAvailable = [
+		'2017-18',
+		'2018-19',
+		'2019-20',
+		'2020-21',
+		'2021-22',
+	];
+
 	const getSearchFilter = () => {
 		setDataTable([]);
 		let roleFilter = document.querySelectorAll(
@@ -406,7 +414,9 @@ export default function StatsGiocatori(props) {
                         </div> */}
 							<div className="presence-filter flex gap-x-4 justify-center text-sm pt-2">
 								<span className="italic opacity-75">
-									<span className="hidden md:display">Presenze:</span>
+									<span className="hidden md:inline-block">
+										Presenze:
+									</span>
 									<span className="inline md:hidden">P:</span>
 								</span>
 								<ul className="flex gap-x-2 md:gap-x-4">
@@ -462,6 +472,22 @@ export default function StatsGiocatori(props) {
 										</a>
 									</li>
 								</ul>
+							</div>
+							<div className="year-filter text-center flex justify-center gap-4 my-3 items-center text-sm">
+								<span>Anni</span>
+
+								{yearsAvailable.map((year) => {
+									return (
+										<span className="flex gap-2 items-center">
+											<input
+												type="checkbox"
+												checked
+												className="checkbox checkbox-sm"
+											/>{' '}
+											{year}
+										</span>
+									);
+								})}
 							</div>
 							<div className="search-filter mt-4 md:px-10 md:px-0 text-center">
 								<input

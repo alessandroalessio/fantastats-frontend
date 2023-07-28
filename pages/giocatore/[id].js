@@ -287,8 +287,8 @@ function StatsGiocatoriSingle(props) {
 									className="w-[32px] h-[32px]"
 								/>
 							</div>
-							<div className="stat-title">Media Goal</div>
-							<div className="stat-value">{props.playerData.gf}</div>
+							<div className="stat-title">Goal Potenziali</div>
+							<div className="stat-value">{props.playerData.gpot}</div>
 							{/* <div className="stat-desc text-secondary">31 tasks remaining</div> */}
 						</div>
 

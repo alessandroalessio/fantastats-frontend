@@ -25,6 +25,7 @@ export async function getStaticProps(context) {
 			label: element.name.replace("'", '´'),
 		});
 		allPlayers[element.fid] = {
+			fid: element.fid,
 			name: element.name.replace("'", '´'),
 			role: element.role,
 			mf: element.mf,
@@ -80,8 +81,14 @@ export default function CalcolaPotenziale({ options, allPlayers }) {
 		}
 	};
 
-	const removePlayer = function () {};
-
+	const handleRemoveItem = (id) => {
+		let ptiPlayerRem = playersList.filter((item) => item.name === id);
+		let ptiTotalRounded =
+			parseFloat(ptiTotal) - parseFloat(ptiPlayerRem[0].mf);
+		setPtiTotal(ptiTotalRounded.toFixed(2));
+		const updatedList = playersList.filter((item) => item.name !== id);
+		setPlayer(updatedList);
+	};
 	const onChange = function () {};
 
 	return (
@@ -143,7 +150,9 @@ export default function CalcolaPotenziale({ options, allPlayers }) {
 										</p>
 										<span className="flex items-center gap-2">
 											FM {item.mf}
-											<span onClick={removePlayer()}>
+											<span
+												onClick={() => handleRemoveItem(item.name)}
+											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
 													fill="none"
