@@ -473,7 +473,7 @@ export default function StatsGiocatori(props) {
 									</li>
 								</ul>
 							</div>
-							<div className="year-filter text-center flex justify-center gap-4 my-3 items-center text-sm">
+							{/* <div className="year-filter text-center flex justify-center gap-4 my-3 items-center text-sm">
 								<span>Anni</span>
 
 								{yearsAvailable.map((year) => {
@@ -488,7 +488,7 @@ export default function StatsGiocatori(props) {
 										</span>
 									);
 								})}
-							</div>
+							</div> */}
 							<div className="search-filter mt-4 md:px-10 md:px-0 text-center">
 								<input
 									id="searchField"

@@ -88,6 +88,9 @@ export default function CalcolaPotenziale({ options, allPlayers }) {
 		setPtiTotal(ptiTotalRounded.toFixed(2));
 		const updatedList = playersList.filter((item) => item.name !== id);
 		setPlayer(updatedList);
+		if (playersList.length <= 11) {
+			setAddDisabled('');
+		}
 	};
 	const onChange = function () {};
 
