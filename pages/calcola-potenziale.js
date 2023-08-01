@@ -98,11 +98,12 @@ export default function CalcolaPotenziale({ options, allPlayers }) {
 		<div>
 			<Head>
 				<title>
-					{commonData.SiteName} | Statistiche per il Fantacalcio
+					Calcola Potenziale Fantacalcio | {commonData.SiteName} |
+					Statistiche per il Fantacalcio
 				</title>
 				<meta
 					name="description"
-					content="Analizza le statitstiche per migliorare il tuo Fantacalcio"
+					content="Calcola il potenziale di squadra sulla base delle statistiche annuali per valutare la tua squadra e quelle avversarie"
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>

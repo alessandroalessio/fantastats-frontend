@@ -55,7 +55,7 @@ function Navbar() {
 						<a className="normal-case">
 							<div className="block text-xl md:text-3xl font-bold tracking-tighter inline-flex gap-2 items-start">
 								{commonData.SiteName}
-								<div className="badge badge-accent text-sm tracking-tighter uppercase font-light">
+								<div className="badge text-white badge-accent text-xs tracking-tighter uppercase lg:translate-y-2 px-2 py-1">
 									beta
 								</div>
 							</div>
@@ -108,22 +108,9 @@ function Navbar() {
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
                 </button> */}
 					<div className="hidden sm:inline-block">
-						<a className="btn">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								className="h-6 w-6"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								strokeWidth="2"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-								/>
-							</svg>
-						</a>
+						<Link href="/login">
+							<a className="btn">Login</a>
+						</Link>
 					</div>
 				</div>
 			</div>

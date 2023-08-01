@@ -6,6 +6,12 @@ body {
 	font-family: 'Poppins';
 }
 
+/** Buttons */
+
+.btn.btn-primary {
+	@apply bg-primary border-primary;
+}
+
 /** Navbar */
 @media only screen and (max-width: 767px) {
 	.navbar-start {
@@ -157,6 +163,11 @@ body {
 .team-lecce {
 	background: #f7ee00;
 	color: #ab0209;
+	border: 1px solid #005d82;
+}
+.team-frosinone {
+	background: #f7ee00;
+	color: #005d82;
 	border: 1px solid #005d82;
 }
 
