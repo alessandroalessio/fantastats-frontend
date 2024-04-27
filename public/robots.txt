@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.fantastats.net
+
+# Sitemaps
+Sitemap: https://www.fantastats.net/sitemap.xml
